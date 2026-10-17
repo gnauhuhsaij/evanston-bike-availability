@@ -1,0 +1,6 @@
+data/raw
+data/*.json
+__pycache__
+.git
+.venv
+.env

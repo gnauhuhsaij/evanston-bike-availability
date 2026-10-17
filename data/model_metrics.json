@@ -1,0 +1,720 @@
+{
+  "train_window": "2022-08-01 through 2022-08-31",
+  "test_window": "2022-09-01 through 2022-09-07",
+  "train_n": 26028,
+  "test_n": 5860,
+  "targets": {
+    "no_bike": {
+      "model": {
+        "n": 5860,
+        "positives": 607,
+        "prevalence": 0.1036,
+        "brier": 0.02588,
+        "auc": 0.969,
+        "ece_10_bins": 0.015,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5247,
+            "mean_predicted": 0.0121,
+            "observed": 0.0137
+          },
+          {
+            "bin": 6,
+            "n": 195,
+            "mean_predicted": 0.6638,
+            "observed": 0.8718
+          },
+          {
+            "bin": 7,
+            "n": 268,
+            "mean_predicted": 0.7518,
+            "observed": 0.8881
+          },
+          {
+            "bin": 8,
+            "n": 132,
+            "mean_predicted": 0.8408,
+            "observed": 0.8485
+          },
+          {
+            "bin": 9,
+            "n": 18,
+            "mean_predicted": 0.9124,
+            "observed": 0.8333
+          }
+        ]
+      },
+      "transition": {
+        "n": 5860,
+        "positives": 607,
+        "prevalence": 0.1036,
+        "brier": 0.02371,
+        "auc": 0.974,
+        "ece_10_bins": 0.0052,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5247,
+            "mean_predicted": 0.0136,
+            "observed": 0.0137
+          },
+          {
+            "bin": 8,
+            "n": 613,
+            "mean_predicted": 0.8239,
+            "observed": 0.8728
+          }
+        ]
+      },
+      "persistence": {
+        "n": 5860,
+        "positives": 607,
+        "prevalence": 0.1036,
+        "brier": 0.0256,
+        "auc": 0.9333,
+        "ece_10_bins": 0.0256,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5247,
+            "mean_predicted": 0.0,
+            "observed": 0.0137
+          },
+          {
+            "bin": 9,
+            "n": 613,
+            "mean_predicted": 1.0,
+            "observed": 0.8728
+          }
+        ]
+      },
+      "training_prevalence": {
+        "n": 5860,
+        "positives": 607,
+        "prevalence": 0.1036,
+        "brier": 0.09484,
+        "auc": 0.5,
+        "ece_10_bins": 0.0446,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5860,
+            "mean_predicted": 0.059,
+            "observed": 0.1036
+          }
+        ]
+      },
+      "by_station": {
+        "Benson Ave & Church St": {
+          "transition": {
+            "n": 975,
+            "positives": 99,
+            "prevalence": 0.1015,
+            "brier": 0.04267,
+            "auc": 0.9375,
+            "ece_10_bins": 0.0187,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 876,
+                "mean_predicted": 0.0141,
+                "observed": 0.0274
+              },
+              {
+                "bin": 8,
+                "n": 99,
+                "mean_predicted": 0.8239,
+                "observed": 0.7576
+              }
+            ]
+          },
+          "persistence": {
+            "n": 975,
+            "positives": 99,
+            "prevalence": 0.1015,
+            "brier": 0.04923,
+            "auc": 0.8651,
+            "ece_10_bins": 0.0492,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 876,
+                "mean_predicted": 0.0,
+                "observed": 0.0274
+              },
+              {
+                "bin": 9,
+                "n": 99,
+                "mean_predicted": 1.0,
+                "observed": 0.7576
+              }
+            ]
+          }
+        },
+        "Central St Metra": {
+          "transition": {
+            "n": 977,
+            "positives": 133,
+            "prevalence": 0.1361,
+            "brier": 0.02068,
+            "auc": 0.9729,
+            "ece_10_bins": 0.0316,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 841,
+                "mean_predicted": 0.0309,
+                "observed": 0.0095
+              },
+              {
+                "bin": 8,
+                "n": 136,
+                "mean_predicted": 0.8239,
+                "observed": 0.9191
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 133,
+            "prevalence": 0.1361,
+            "brier": 0.01945,
+            "auc": 0.9634,
+            "ece_10_bins": 0.0194,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 841,
+                "mean_predicted": 0.0,
+                "observed": 0.0095
+              },
+              {
+                "bin": 9,
+                "n": 136,
+                "mean_predicted": 1.0,
+                "observed": 0.9191
+              }
+            ]
+          }
+        },
+        "Chicago Ave & Sheridan Rd": {
+          "transition": {
+            "n": 977,
+            "positives": 225,
+            "prevalence": 0.2303,
+            "brier": 0.03657,
+            "auc": 0.9774,
+            "ece_10_bins": 0.0283,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 749,
+                "mean_predicted": 0.0127,
+                "observed": 0.0227
+              },
+              {
+                "bin": 8,
+                "n": 228,
+                "mean_predicted": 0.8239,
+                "observed": 0.9123
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 225,
+            "prevalence": 0.2303,
+            "brier": 0.03787,
+            "auc": 0.9489,
+            "ece_10_bins": 0.0379,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 749,
+                "mean_predicted": 0.0,
+                "observed": 0.0227
+              },
+              {
+                "bin": 9,
+                "n": 228,
+                "mean_predicted": 1.0,
+                "observed": 0.9123
+              }
+            ]
+          }
+        },
+        "Dodge Ave & Church St": {
+          "transition": {
+            "n": 977,
+            "positives": 47,
+            "prevalence": 0.0481,
+            "brier": 0.01658,
+            "auc": 0.9706,
+            "ece_10_bins": 0.0016,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 930,
+                "mean_predicted": 0.0106,
+                "observed": 0.0097
+              },
+              {
+                "bin": 8,
+                "n": 47,
+                "mean_predicted": 0.8239,
+                "observed": 0.8085
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 47,
+            "prevalence": 0.0481,
+            "brier": 0.01842,
+            "auc": 0.8994,
+            "ece_10_bins": 0.0184,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 930,
+                "mean_predicted": 0.0,
+                "observed": 0.0097
+              },
+              {
+                "bin": 9,
+                "n": 47,
+                "mean_predicted": 1.0,
+                "observed": 0.8085
+              }
+            ]
+          }
+        },
+        "Sheridan Rd & Noyes St (NU)": {
+          "transition": {
+            "n": 977,
+            "positives": 87,
+            "prevalence": 0.089,
+            "brier": 0.01569,
+            "auc": 0.9904,
+            "ece_10_bins": 0.0099,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 890,
+                "mean_predicted": 0.0063,
+                "observed": 0.009
+              },
+              {
+                "bin": 8,
+                "n": 87,
+                "mean_predicted": 0.8239,
+                "observed": 0.908
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 87,
+            "prevalence": 0.089,
+            "brier": 0.01638,
+            "auc": 0.9495,
+            "ece_10_bins": 0.0164,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 890,
+                "mean_predicted": 0.0,
+                "observed": 0.009
+              },
+              {
+                "bin": 9,
+                "n": 87,
+                "mean_predicted": 1.0,
+                "observed": 0.908
+              }
+            ]
+          }
+        },
+        "University Library (NU)": {
+          "transition": {
+            "n": 977,
+            "positives": 16,
+            "prevalence": 0.0164,
+            "brier": 0.0101,
+            "auc": 0.9861,
+            "ece_10_bins": 0.0053,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 961,
+                "mean_predicted": 0.0083,
+                "observed": 0.0062
+              },
+              {
+                "bin": 8,
+                "n": 16,
+                "mean_predicted": 0.8239,
+                "observed": 0.625
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 16,
+            "prevalence": 0.0164,
+            "brier": 0.01228,
+            "auc": 0.8094,
+            "ece_10_bins": 0.0123,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 961,
+                "mean_predicted": 0.0,
+                "observed": 0.0062
+              },
+              {
+                "bin": 9,
+                "n": 16,
+                "mean_predicted": 1.0,
+                "observed": 0.625
+              }
+            ]
+          }
+        }
+      }
+    },
+    "no_dock": {
+      "model": {
+        "n": 5860,
+        "positives": 27,
+        "prevalence": 0.0046,
+        "brier": 0.00361,
+        "auc": 0.9693,
+        "ece_10_bins": 0.004,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5833,
+            "mean_predicted": 0.0022,
+            "observed": 0.001
+          },
+          {
+            "bin": 1,
+            "n": 27,
+            "mean_predicted": 0.1574,
+            "observed": 0.7778
+          }
+        ]
+      },
+      "transition": {
+        "n": 5860,
+        "positives": 27,
+        "prevalence": 0.0046,
+        "brier": 0.00164,
+        "auc": 0.9991,
+        "ece_10_bins": 0.0006,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5822,
+            "mean_predicted": 0.0004,
+            "observed": 0.0003
+          },
+          {
+            "bin": 1,
+            "n": 11,
+            "mean_predicted": 0.144,
+            "observed": 0.3636
+          },
+          {
+            "bin": 7,
+            "n": 27,
+            "mean_predicted": 0.7418,
+            "observed": 0.7778
+          }
+        ]
+      },
+      "persistence": {
+        "n": 5860,
+        "positives": 27,
+        "prevalence": 0.0046,
+        "brier": 0.00205,
+        "auc": 0.8884,
+        "ece_10_bins": 0.002,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5833,
+            "mean_predicted": 0.0,
+            "observed": 0.001
+          },
+          {
+            "bin": 9,
+            "n": 27,
+            "mean_predicted": 1.0,
+            "observed": 0.7778
+          }
+        ]
+      },
+      "training_prevalence": {
+        "n": 5860,
+        "positives": 27,
+        "prevalence": 0.0046,
+        "brier": 0.00475,
+        "auc": 0.5,
+        "ece_10_bins": 0.0128,
+        "calibration": [
+          {
+            "bin": 0,
+            "n": 5860,
+            "mean_predicted": 0.0174,
+            "observed": 0.0046
+          }
+        ]
+      },
+      "by_station": {
+        "Benson Ave & Church St": {
+          "transition": {
+            "n": 975,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0001,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 975,
+                "mean_predicted": 0.0001,
+                "observed": 0.0
+              }
+            ]
+          },
+          "persistence": {
+            "n": 975,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 975,
+                "mean_predicted": 0.0,
+                "observed": 0.0
+              }
+            ]
+          }
+        },
+        "Central St Metra": {
+          "transition": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0002,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0002,
+                "observed": 0.0
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0,
+                "observed": 0.0
+              }
+            ]
+          }
+        },
+        "Chicago Ave & Sheridan Rd": {
+          "transition": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0001,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0001,
+                "observed": 0.0
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0,
+                "observed": 0.0
+              }
+            ]
+          }
+        },
+        "Dodge Ave & Church St": {
+          "transition": {
+            "n": 977,
+            "positives": 15,
+            "prevalence": 0.0154,
+            "brier": 0.00478,
+            "auc": 0.9981,
+            "ece_10_bins": 0.0043,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 959,
+                "mean_predicted": 0.0008,
+                "observed": 0.0
+              },
+              {
+                "bin": 1,
+                "n": 3,
+                "mean_predicted": 0.144,
+                "observed": 1.0
+              },
+              {
+                "bin": 7,
+                "n": 15,
+                "mean_predicted": 0.7418,
+                "observed": 0.8
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 15,
+            "prevalence": 0.0154,
+            "brier": 0.00614,
+            "auc": 0.8984,
+            "ece_10_bins": 0.0061,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 962,
+                "mean_predicted": 0.0,
+                "observed": 0.0031
+              },
+              {
+                "bin": 9,
+                "n": 15,
+                "mean_predicted": 1.0,
+                "observed": 0.8
+              }
+            ]
+          }
+        },
+        "Sheridan Rd & Noyes St (NU)": {
+          "transition": {
+            "n": 977,
+            "positives": 12,
+            "prevalence": 0.0123,
+            "brier": 0.00505,
+            "auc": 0.9964,
+            "ece_10_bins": 0.0014,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 957,
+                "mean_predicted": 0.0009,
+                "observed": 0.0021
+              },
+              {
+                "bin": 1,
+                "n": 8,
+                "mean_predicted": 0.144,
+                "observed": 0.125
+              },
+              {
+                "bin": 7,
+                "n": 12,
+                "mean_predicted": 0.7418,
+                "observed": 0.75
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 12,
+            "prevalence": 0.0123,
+            "brier": 0.00614,
+            "auc": 0.8734,
+            "ece_10_bins": 0.0061,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 965,
+                "mean_predicted": 0.0,
+                "observed": 0.0031
+              },
+              {
+                "bin": 9,
+                "n": 12,
+                "mean_predicted": 1.0,
+                "observed": 0.75
+              }
+            ]
+          }
+        },
+        "University Library (NU)": {
+          "transition": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0003,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0003,
+                "observed": 0.0
+              }
+            ]
+          },
+          "persistence": {
+            "n": 977,
+            "positives": 0,
+            "prevalence": 0.0,
+            "brier": 0.0,
+            "auc": null,
+            "ece_10_bins": 0.0,
+            "calibration": [
+              {
+                "bin": 0,
+                "n": 977,
+                "mean_predicted": 0.0,
+                "observed": 0.0
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

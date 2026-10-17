@@ -1,0 +1,186 @@
+{
+  "collected_at_utc": "2026-10-17T02:43:42.108433+00:00",
+  "historical_window": [
+    "2022-08-01T00:00:00",
+    "2022-09-08T00:00:00"
+  ],
+  "historical_source": "https://data.cityofchicago.org/resource/eq45-8inv.json",
+  "historical_rows": 32376,
+  "historical_stations": 6,
+  "current_info_last_updated": 1792204914,
+  "current_status_last_updated": 1792204975,
+  "current_station_count": 2074,
+  "current_status_count": 2074,
+  "station_match": {
+    "Benson Ave & Church St": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "596",
+      "current_id": "a3b2e20c-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Chicago Ave & Sheridan Rd": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "603",
+      "current_id": "a3b305e7-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Dempster CTA": {
+      "historical_rows": 0,
+      "current_name_match": true,
+      "distance_m": null,
+      "current_status_present": true,
+      "historical_id": null,
+      "current_id": "a3b4963f-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Central St Metra": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "601",
+      "current_id": "a3b2fbb6-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Robert Crown Community Center": {
+      "historical_rows": 0,
+      "current_name_match": true,
+      "distance_m": null,
+      "current_status_present": true,
+      "historical_id": null,
+      "current_id": "a3b377cb-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "University Library (NU)": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "605",
+      "current_id": "a3b310ac-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Sheridan Rd & Noyes St (NU)": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "604",
+      "current_id": "a3b30b06-a135-11e9-9cda-0a87ae2ba916"
+    },
+    "Dodge Ave & Church St": {
+      "historical_rows": 5396,
+      "current_name_match": true,
+      "distance_m": 0.0,
+      "current_status_present": true,
+      "historical_id": "600",
+      "current_id": "a3b2f698-a135-11e9-9cda-0a87ae2ba916"
+    }
+  },
+  "horizons": {
+    "15": {
+      "origin_rows": 32376,
+      "eligible_origins": 32375,
+      "matched_labels": 27287,
+      "missing_future": 5087,
+      "future_out_of_service": 1,
+      "origin_out_of_service": 1,
+      "matching_rate_of_eligible": 0.8428,
+      "no_bike_labels": 1833,
+      "no_dock_labels": 411,
+      "median_target_offset_minutes": 4.616666666666666,
+      "by_station": {
+        "Central St Metra": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 4548,
+          "missing_future": 848
+        },
+        "Benson Ave & Church St": {
+          "origin_rows": 5396,
+          "eligible_origins": 5395,
+          "matched_labels": 4547,
+          "missing_future": 847,
+          "future_out_of_service": 1,
+          "origin_out_of_service": 1
+        },
+        "Dodge Ave & Church St": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 4548,
+          "missing_future": 848
+        },
+        "Chicago Ave & Sheridan Rd": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 4548,
+          "missing_future": 848
+        },
+        "Sheridan Rd & Noyes St (NU)": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 4548,
+          "missing_future": 848
+        },
+        "University Library (NU)": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 4548,
+          "missing_future": 848
+        }
+      }
+    },
+    "30": {
+      "origin_rows": 32376,
+      "eligible_origins": 32375,
+      "matched_labels": 31906,
+      "missing_future": 468,
+      "future_out_of_service": 1,
+      "origin_out_of_service": 1,
+      "matching_rate_of_eligible": 0.9855,
+      "no_bike_labels": 2149,
+      "no_dock_labels": 479,
+      "median_target_offset_minutes": 0.31666666666666665,
+      "by_station": {
+        "Central St Metra": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 5318,
+          "missing_future": 78
+        },
+        "Benson Ave & Church St": {
+          "origin_rows": 5396,
+          "eligible_origins": 5395,
+          "matched_labels": 5316,
+          "missing_future": 78,
+          "future_out_of_service": 1,
+          "origin_out_of_service": 1
+        },
+        "Dodge Ave & Church St": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 5318,
+          "missing_future": 78
+        },
+        "Chicago Ave & Sheridan Rd": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 5318,
+          "missing_future": 78
+        },
+        "Sheridan Rd & Noyes St (NU)": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 5318,
+          "missing_future": 78
+        },
+        "University Library (NU)": {
+          "origin_rows": 5396,
+          "eligible_origins": 5396,
+          "matched_labels": 5318,
+          "missing_future": 78
+        }
+      }
+    }
+  }
+}

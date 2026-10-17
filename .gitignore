@@ -1,0 +1,6 @@
+data/raw/
+__pycache__/
+.venv/
+.env
+data/anonymous_events.json
+data/prospective_metrics.json

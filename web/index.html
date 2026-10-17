@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dockside Evanston · plan a more reliable bike trip</title>
+  <link rel="stylesheet" href="/leaflet.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">●</span> Dockside <span class="brand-place">Evanston</span></div>
+    <a class="method-link" href="#method">How this works ↗</a>
+  </header>
+  <main class="layout">
+    <section class="panel" aria-labelledby="main-title">
+      <div class="intro"><p class="kicker">Bike share, a little more certain</p><h1 id="main-title">Know the dock before you go.</h1><p class="subtitle">See bikes and open docks near you. On six stations, explore an experimental 30-minute risk estimate.</p></div>
+      <div class="switch" role="group" aria-label="Trip direction"><button id="pickup" class="active" type="button">I need a bike</button><button id="return" type="button">I need a dock</button></div>
+      <div class="status-line"><span id="feed-status">Loading station feed…</span><span id="station-total"></span></div>
+      <div id="station-list" class="station-list" aria-live="polite"></div>
+      <p class="panel-note">Select a station to see its details. Availability may change before you arrive.</p>
+    </section>
+    <section class="map-area" aria-label="Map of Evanston bike share stations">
+      <div id="map"></div>
+      <div id="map-fallback" class="map-fallback" hidden>Map tiles could not load. The station list still shows live availability.</div>
+      <div class="map-key"><span><i class="key-dot available"></i> Available now</span><span><i class="key-dot limited"></i> Limited</span><span><i class="key-dot unavailable"></i> Unavailable</span></div>
+      <article id="detail" class="detail"><p class="detail-hint">Choose a station on the map or list.</p></article>
+    </section>
+  </main>
+  <section id="method" class="method"><div><h2>What the numbers mean</h2><p>Current bikes and docks come from the operator's public station feed. Experimental risk means the chance of zero bikes or zero docks about 30 minutes later, estimated from 2022 Evanston station snapshots. It has not yet passed a 2026 prospective test. We show no estimate for newer or stale stations.</p></div><div><h2>Early research prototype</h2><p>This site is independent and is not affiliated with or endorsed by the bike share operator or the City of Chicago. Station data can be delayed or wrong. Check the official app before starting your trip.</p></div></section>
+  <footer>Made for Evanston riders · <span id="refresh-note">Updating every minute</span></footer>
+  <script src="/leaflet.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
