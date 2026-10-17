@@ -18,3 +18,26 @@
 .chart-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
 .chart-caption,.chart-empty{font-size:10px;line-height:1.4;color:var(--muted);margin:4px 0 11px}
 @media(max-width:800px){.map-area{height:auto;min-height:0;overflow:visible}#map{height:350px}.detail{position:relative;left:auto;bottom:auto;width:100%;max-height:none;border-radius:0;box-shadow:none}}
+.detail h2{margin-bottom:13px}
+.stock-labels{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted);margin-bottom:8px}
+.stock-labels span{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.stock-labels strong{font-size:16px;line-height:1;color:var(--ink);margin-left:3px}
+.stock-key{display:inline-block;width:9px;height:9px;border-radius:2px;flex:none}
+.stock-key-bike,.stock-bikes{background:var(--green)}
+.stock-key-dock,.stock-docks{background:var(--red)}
+.stock-bar{width:100%;height:15px;display:flex;overflow:hidden;border-radius:5px;background:#dce4e0;border:1px solid #cad8d0}
+.stock-bar span{display:block;height:100%;transition:width .2s ease}
+.risk-compact{font-size:12px;line-height:1.45;margin:14px 0 6px}
+.risk-compact strong{font-size:17px;color:var(--ink)}
+.risk-compact span,.risk-missing{color:var(--muted)}
+.detail-updated{font-size:11px;color:var(--muted);margin:0 0 12px}
+.station-more{border-top:1px solid var(--line);padding-top:10px}
+.station-more summary{color:var(--lake);font-size:12px;font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
+.station-more summary::-webkit-details-marker{display:none}
+.station-more summary::after{content:'+';font-size:19px;line-height:1}
+.station-more[open] summary::after{content:'−'}
+.station-more summary:focus-visible{outline:3px solid #e8a45c;outline-offset:3px}
+.station-more-content{padding-top:10px}
+.detail-caveat{font-size:11px;line-height:1.45;color:var(--muted);margin:0 0 5px}
+@media(prefers-reduced-motion:reduce){.stock-bar span{transition:none}}
+@media(max-width:430px){.stock-labels{font-size:10px;gap:4px}.stock-labels strong{font-size:14px}}

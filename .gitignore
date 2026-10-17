@@ -5,3 +5,5 @@ __pycache__/
 data/anonymous_events.json
 data/prospective_metrics.json
 data/daily/
+data/local_collector.plist
+data/collector*.log
