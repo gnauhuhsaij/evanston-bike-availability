@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 WORKDIR /app
-COPY pilot.py train.py server.py prospective.py ./
+COPY pilot.py train.py server.py prospective.py monitor.py ./
 COPY models/ ./models/
 COPY web/ ./web/
 RUN mkdir -p data/raw

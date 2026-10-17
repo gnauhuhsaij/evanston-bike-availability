@@ -34,6 +34,7 @@ def main() -> None:
             by_station[station["station_id"]].append((collected, station, frame.get("model_version")))
     counts = Counter()
     paired = {"no_bike": ([], []), "no_dock": ([], [])}
+    baselines = {"no_bike": [], "no_dock": []}
     by_station_counts = {}
     for station_id, series in by_station.items():
         series.sort(key=lambda r: r[0])
@@ -79,10 +80,11 @@ def main() -> None:
                 truth, prediction = paired[key]
                 truth.append(int(actual[count] == 0))
                 prediction.append(risk[key + "_30m"])
+                baselines[key].append(float(station[count] == 0))
             counts["matched"] += 1
             local["matched"] += 1
         by_station_counts[station_id] = dict(local)
-    result = {"polls": polls, "stations": len(by_station), "counts": dict(counts), "targets": {key: metrics(*values) if values[0] else None for key, values in paired.items()}, "by_station_counts": by_station_counts}
+    result = {"polls": polls, "stations": len(by_station), "counts": dict(counts), "targets": {key: {"model": metrics(*values), "persistence": metrics(values[0], baselines[key])} if values[0] else None for key, values in paired.items()}, "by_station_counts": by_station_counts}
     OUTPUT.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({k: v for k, v in result.items() if k != "by_station_counts"}, indent=2))
 

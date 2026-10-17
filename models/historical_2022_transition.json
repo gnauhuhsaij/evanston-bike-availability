@@ -1,6 +1,14 @@
 {
   "trained_on": "2022-08-01 through 2022-08-31",
   "horizon_minutes": 30,
+  "trained_stations": [
+    "Benson Ave & Church St",
+    "Central St Metra",
+    "Chicago Ave & Sheridan Rd",
+    "Dodge Ave & Church St",
+    "Sheridan Rd & Noyes St (NU)",
+    "University Library (NU)"
+  ],
   "targets": {
     "no_bike": {
       "prevalence": 0.05901337021668972,

@@ -63,10 +63,7 @@ def refresh() -> None:
         }
         source_age = now.timestamp() - (record["last_reported"] or 0)
         record["fresh"] = 0 <= source_age <= MAX_SOURCE_AGE
-        if model and record["fresh"] and record["renting"] and record["returning"] and record["name"] in (
-            "Benson Ave & Church St", "Chicago Ave & Sheridan Rd", "Central St Metra",
-            "University Library (NU)", "Sheridan Rd & Noyes St (NU)", "Dodge Ave & Church St",
-        ):
+        if model and record["fresh"] and record["renting"] and record["returning"] and record["name"] in model["trained_stations"]:
             record["experimental_risk"] = {
                 "no_bike_30m": round(transition_predict(model["targets"]["no_bike"], record["bikes"]), 3),
                 "no_dock_30m": round(transition_predict(model["targets"]["no_dock"], record["docks"]), 3),

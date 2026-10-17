@@ -174,7 +174,7 @@ def main() -> None:
         raise RuntimeError("Chronological split yielded no data")
     results = {"train_window": "2022-08-01 through 2022-08-31", "test_window": "2022-09-01 through 2022-09-07", "train_n": len(training), "test_n": len(testing), "targets": {}}
     model = {"trained_on": results["train_window"], "features": ["bias", "bikes_20", "docks_20", "capacity_40", "zero_bikes", "zero_docks", "bike_delta_10", "dock_delta_10", "hour_sin", "hour_cos", "weekend", *["station:" + s for s in STATIONS]], "weights": {}}
-    transition_model = {"trained_on": results["train_window"], "horizon_minutes": 30, "targets": {}}
+    transition_model = {"trained_on": results["train_window"], "horizon_minutes": 30, "trained_stations": sorted({item["name"] for item in training}), "targets": {}}
     for target, current in (("no_bike", "now_bikes"), ("no_dock", "now_docks")):
         weights = fit(training, target)
         model["weights"][target] = weights
