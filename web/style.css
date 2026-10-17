@@ -4,3 +4,17 @@
 .alternative{display:block;width:100%;margin-top:9px;padding:9px 0;border:0;border-top:1px solid var(--line);background:transparent;color:var(--lake);text-align:left;font-size:11px;font-weight:700;cursor:pointer}.alternative:hover{text-decoration:underline}.alternative:focus-visible{outline:3px solid #e8a45c;outline-offset:2px}
 @media(max-width:800px){.topbar{height:58px;padding:0 18px}.layout{display:flex;flex-direction:column;height:auto}.panel{border-right:0}.intro{padding:25px 20px 15px}.intro h1{font-size:34px}.switch{margin:0 20px 14px}.status-line{padding:0 20px 10px}.station-list{max-height:255px}.panel-note{padding:10px 20px}.map-area{height:520px;min-height:520px}.method{grid-template-columns:1fr;gap:5px;padding:35px 22px}.map-key{top:10px;right:10px;gap:7px;font-size:9px}.detail{bottom:12px;left:12px;width:calc(100% - 24px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.detail{width:min(410px,calc(100% - 44px));max-height:min(75vh,630px);overflow-y:auto}
+.history{border-top:1px solid var(--line);margin-top:15px;padding-top:10px}
+.history h3{font-family:Georgia,serif;font-size:18px;font-weight:400;margin:0 0 8px}
+.chart-switch{display:flex;gap:5px;margin-bottom:12px}
+.chart-switch button{border:1px solid var(--line);border-radius:6px;background:transparent;padding:5px 9px;font-size:11px;cursor:pointer}
+.chart-switch button.active{background:var(--ink);color:white;border-color:var(--ink)}
+.chart-switch button:focus-visible{outline:3px solid #e8a45c;outline-offset:2px}
+.chart-title{font-size:12px;font-weight:750;margin:10px 0 3px}
+.line-chart{display:block;width:100%;height:auto;max-height:120px}
+.line-chart text{font-family:"Avenir Next",Avenir,"Segoe UI",sans-serif;font-size:9px;fill:var(--muted)}
+.chart-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:10px;color:var(--muted);margin:2px 0}
+.chart-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.chart-caption,.chart-empty{font-size:10px;line-height:1.4;color:var(--muted);margin:4px 0 11px}
+@media(max-width:800px){.map-area{height:auto;min-height:0;overflow:visible}#map{height:350px}.detail{position:relative;left:auto;bottom:auto;width:100%;max-height:none;border-radius:0;box-shadow:none}}

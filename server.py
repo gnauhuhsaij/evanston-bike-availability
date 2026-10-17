@@ -1,6 +1,6 @@
 """Local passenger prototype and prospective GBFS snapshot collector.
 
-Run: python3 server.py; open http://localhost:8000
+Run: python3 server.py; open http://127.0.0.1:8787
 Only anonymous aggregate event counts are stored. No IP or user identifier is logged.
 """
 from __future__ import annotations
@@ -10,10 +10,13 @@ import hashlib
 import json
 import os
 import pathlib
+import re
 import threading
 import time
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlsplit
+from analytics import DAILY, LOCAL, station_history, write_day
 from pilot import ROOT
 from train import count_bucket, transition_predict
 
@@ -93,6 +96,20 @@ def poller() -> None:
         time.sleep(POLL_SECONDS)
 
 
+def daily_assessor() -> None:
+    """Score yesterday after its final 30-minute outcomes can be observed."""
+    while True:
+        local_now = dt.datetime.now(LOCAL)
+        if (local_now.hour, local_now.minute) >= (0, 40):
+            day = local_now.date() - dt.timedelta(days=1)
+            if not (DAILY / (day.isoformat() + ".json")).exists():
+                try:
+                    write_day(day)
+                except Exception as exc:
+                    print(f"Daily assessment failed for {day}: {exc}", flush=True)
+        time.sleep(900)
+
+
 def count_event(name: str) -> None:
     if name not in {"page_view", "station_select", "direction_pickup", "direction_return"}:
         return
@@ -118,6 +135,20 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
+        parsed = urlsplit(self.path)
+        if parsed.path.startswith("/api/stations/") and parsed.path.endswith("/history"):
+            station_id = parsed.path[len("/api/stations/"):-len("/history")].strip("/")
+            window = parse_qs(parsed.query).get("window", ["day"])[0]
+            if not re.fullmatch(r"[A-Za-z0-9-]{1,80}", station_id) or window not in {"day", "month"}:
+                self.send_error(400)
+                return
+            with lock:
+                known = any(s["id"] == station_id for s in state["stations"])
+            if not known:
+                self.send_error(404)
+                return
+            self.send_json(station_history(station_id, window))
+            return
         if self.path == "/api/stations":
             with lock:
                 self.send_json({"stations": state["stations"], "last_success": state["last_success"], "error": state["last_error"], "model_status": "2022 backtest only; 2026 prospective validation pending"})
@@ -131,7 +162,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"anonymous_events_by_day": json.loads(EVENTS.read_text()) if EVENTS.exists() else {}})
             return
         relative = "index.html" if self.path == "/" else self.path.lstrip("/")
-        if relative not in {"index.html", "style.css", "app.js", "leaflet.css", "leaflet.js"}:
+        if relative not in {"index.html", "style.css", "app.js", "charts.js", "leaflet.css", "leaflet.js"}:
             self.send_error(404)
             return
         target = STATIC / relative
@@ -168,6 +199,7 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     threading.Thread(target=poller, daemon=True).start()
+    threading.Thread(target=daily_assessor, daemon=True).start()
     host = os.environ.get("HOST", "127.0.0.1")
     port = int(os.environ.get("PORT", "8787"))
     server = ThreadingHTTPServer((host, port), Handler)

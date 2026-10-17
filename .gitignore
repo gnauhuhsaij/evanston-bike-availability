@@ -4,3 +4,4 @@ __pycache__/
 .env
 data/anonymous_events.json
 data/prospective_metrics.json
+data/daily/

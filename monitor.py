@@ -10,6 +10,8 @@ import pathlib
 import sys
 import urllib.request
 from pilot import ROOT
+from analytics import DAILY, LOCAL, SOURCE
+import datetime as dt
 
 HEALTH = os.environ.get("HEALTH_URL", "http://127.0.0.1:8787/api/health")
 PROSPECTIVE = ROOT / "data" / "prospective_metrics.json"
@@ -40,6 +42,29 @@ def main() -> int:
             if scores and scores["model"]["n"] >= 200 and scores["model"]["positives"] >= 10:
                 if scores["model"]["brier"] > 1.2 * scores["persistence"]["brier"]:
                     failures.append(f"{target} prospective Brier is >20% worse than persistence")
+    local_now = dt.datetime.now(LOCAL)
+    if (local_now.hour, local_now.minute) >= (0, 55):
+        yesterday = local_now.date() - dt.timedelta(days=1)
+        report_path = DAILY / (yesterday.isoformat() + ".json")
+        if not report_path.exists():
+            if SOURCE.exists():
+                with SOURCE.open() as file:
+                    first_line = file.readline()
+                try:
+                    first_day = dt.datetime.fromisoformat(json.loads(first_line)["collected_at"]).astimezone(LOCAL).date()
+                except (ValueError, KeyError):
+                    first_day = yesterday
+                if first_day <= yesterday:
+                    failures.append(f"daily assessment missing for {yesterday}")
+        else:
+            daily = json.loads(report_path.read_text())
+            coverage = daily.get("coverage", {})
+            if not coverage.get("initial_partial_day") and coverage.get("fraction", 0) < 0.9:
+                failures.append(f"only {daily.get('polls', 0)}/{coverage.get('expected_polls', '?')} polls on {yesterday}")
+            for target, scores in daily.get("targets", {}).items():
+                model, baseline = scores.get("model"), scores.get("persistence")
+                if model and baseline and model["n"] >= 200 and model["positives"] >= 10 and model["brier"] > 1.2 * baseline["brier"]:
+                    failures.append(f"{target} yesterday Brier was >20% worse than matched persistence")
     print(json.dumps({"health": health, "alerts": failures}, indent=2))
     return 1 if failures else 0
 
