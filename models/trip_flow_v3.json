@@ -1,0 +1,20 @@
+{
+ "kind": "trip_flow_v3_state_duration",
+ "base_model": "trip_flow.json",
+ "constants": {
+  "duration_bins_min": [
+   0,
+   15,
+   60,
+   180
+  ],
+  "prior_strength": 20,
+  "max_gap_min": 15,
+  "fresh_s": 300,
+  "horizon_min": 30,
+  "match_tolerance_s": 180,
+  "origin_bucket_s": 600
+ },
+ "frozen_at": "2026-10-18T22:56:02+00:00",
+ "note": "Only origins at or after frozen_at are an out-of-sample test of v3."
+}
