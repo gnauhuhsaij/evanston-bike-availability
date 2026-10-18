@@ -1,0 +1,26 @@
+{
+ "kind": "trip_flow_v2_online",
+ "base_model": "trip_flow.json",
+ "constants": {
+  "max_poll_gap_s": 150,
+  "fresh_s": 300,
+  "jump_min": 4,
+  "intensity_window_min": 60,
+  "intensity_min_coverage": 0.5,
+  "intensity_prior_trips": 2.0,
+  "intensity_bounds": [
+   0.25,
+   4.0
+  ],
+  "censor_prior_polls": 600,
+  "censor_max_correction": 2.0,
+  "rebalance_prior_hours": 24.0,
+  "rebalance_default_size": 5
+ },
+ "components": [
+  "censor",
+  "intensity",
+  "rebalance"
+ ],
+ "note": "Corrections are estimated at prediction time from snapshots before that time."
+}
