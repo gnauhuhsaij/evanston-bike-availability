@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:28:31+00:00",
+  "generated_at": "2026-10-18T23:07:46+00:00",
   "trip_flow_trained_months": [
     "202510",
     "202511",
@@ -14,44 +14,44 @@
     "202608",
     "202609"
   ],
-  "polls": 1212,
+  "polls": 2518,
   "counts": {
-    "origin_buckets": 3402,
-    "matched": 2718,
-    "future_missing_or_pending": 147,
-    "origin_stale_or_closed": 463,
-    "future_stale_or_closed": 74
+    "origin_buckets": 7047,
+    "matched": 5902,
+    "future_missing_or_pending": 222,
+    "origin_stale_or_closed": 801,
+    "future_stale_or_closed": 122
   },
   "all_stations": {
-    "n_origins": 2718,
-    "stations": 25,
+    "n_origins": 5902,
+    "stations": 26,
     "scores": {
       "no_bike": {
         "trip_flow": {
-          "n": 2718,
-          "positives": 120,
-          "prevalence": 0.0442,
-          "brier": 0.01175,
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01466,
           "auc": 0.9895,
-          "ece_10_bins": 0.0062,
+          "ece_10_bins": 0.0069,
           "calibration": [
             {
               "bin": 0,
-              "n": 2569,
-              "mean_predicted": 0.0025,
-              "observed": 0.0054
+              "n": 5381,
+              "mean_predicted": 0.002,
+              "observed": 0.0065
             },
             {
               "bin": 1,
-              "n": 20,
-              "mean_predicted": 0.1332,
-              "observed": 0.25
+              "n": 81,
+              "mean_predicted": 0.1497,
+              "observed": 0.1358
             },
             {
               "bin": 2,
-              "n": 16,
-              "mean_predicted": 0.2493,
-              "observed": 0.25
+              "n": 51,
+              "mean_predicted": 0.2411,
+              "observed": 0.1373
             },
             {
               "bin": 3,
@@ -61,151 +61,937 @@
             },
             {
               "bin": 5,
-              "n": 3,
-              "mean_predicted": 0.5821,
+              "n": 4,
+              "mean_predicted": 0.5826,
               "observed": 0.0
             },
             {
               "bin": 7,
-              "n": 14,
-              "mean_predicted": 0.7708,
-              "observed": 0.7857
+              "n": 22,
+              "mean_predicted": 0.7695,
+              "observed": 0.7727
             },
             {
               "bin": 8,
-              "n": 46,
-              "mean_predicted": 0.8575,
-              "observed": 0.913
+              "n": 140,
+              "mean_predicted": 0.856,
+              "observed": 0.8643
             },
             {
               "bin": 9,
-              "n": 48,
-              "mean_predicted": 0.9497,
-              "observed": 0.9167
+              "n": 221,
+              "mean_predicted": 0.9587,
+              "observed": 0.9321
             }
           ]
         },
-        "persistence": {
-          "n": 2718,
-          "positives": 120,
-          "prevalence": 0.0442,
-          "brier": 0.01361,
-          "auc": 0.9015,
-          "ece_10_bins": 0.0136,
+        "trip_flow_v2": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.0152,
+          "auc": 0.9881,
+          "ece_10_bins": 0.0093,
           "calibration": [
             {
               "bin": 0,
-              "n": 2607,
-              "mean_predicted": 0.0,
-              "observed": 0.0088
-            },
-            {
-              "bin": 9,
-              "n": 111,
-              "mean_predicted": 1.0,
-              "observed": 0.8739
-            }
-          ]
-        },
-        "brier_skill_vs_persistence": {
-          "trip_flow": 0.1367
-        }
-      },
-      "no_dock": {
-        "trip_flow": {
-          "n": 2718,
-          "positives": 233,
-          "prevalence": 0.0857,
-          "brier": 0.02831,
-          "auc": 0.979,
-          "ece_10_bins": 0.0194,
-          "calibration": [
-            {
-              "bin": 0,
-              "n": 2399,
-              "mean_predicted": 0.0039,
-              "observed": 0.0083
+              "n": 5355,
+              "mean_predicted": 0.0021,
+              "observed": 0.0063
             },
             {
               "bin": 1,
-              "n": 45,
-              "mean_predicted": 0.1428,
+              "n": 81,
+              "mean_predicted": 0.1489,
               "observed": 0.1111
             },
             {
               "bin": 2,
-              "n": 36,
-              "mean_predicted": 0.2433,
-              "observed": 0.6944
+              "n": 46,
+              "mean_predicted": 0.2535,
+              "observed": 0.1739
             },
             {
               "bin": 3,
+              "n": 22,
+              "mean_predicted": 0.3411,
+              "observed": 0.0909
+            },
+            {
+              "bin": 4,
               "n": 10,
-              "mean_predicted": 0.3269,
-              "observed": 0.2
+              "mean_predicted": 0.4338,
+              "observed": 0.0
             },
             {
               "bin": 5,
-              "n": 34,
-              "mean_predicted": 0.5484,
-              "observed": 0.6471
+              "n": 3,
+              "mean_predicted": 0.5367,
+              "observed": 0.0
             },
             {
               "bin": 6,
-              "n": 33,
-              "mean_predicted": 0.6349,
-              "observed": 0.8182
+              "n": 1,
+              "mean_predicted": 0.6545,
+              "observed": 0.0
             },
             {
               "bin": 7,
-              "n": 27,
-              "mean_predicted": 0.7683,
+              "n": 13,
+              "mean_predicted": 0.7714,
+              "observed": 0.9231
+            },
+            {
+              "bin": 8,
+              "n": 120,
+              "mean_predicted": 0.8623,
+              "observed": 0.825
+            },
+            {
+              "bin": 9,
+              "n": 251,
+              "mean_predicted": 0.9539,
+              "observed": 0.9283
+            }
+          ]
+        },
+        "v2_censor": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01479,
+          "auc": 0.9897,
+          "ece_10_bins": 0.0076,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5369,
+              "mean_predicted": 0.002,
+              "observed": 0.0065
+            },
+            {
+              "bin": 1,
+              "n": 61,
+              "mean_predicted": 0.1358,
+              "observed": 0.1311
+            },
+            {
+              "bin": 2,
+              "n": 79,
+              "mean_predicted": 0.2441,
+              "observed": 0.1266
+            },
+            {
+              "bin": 3,
+              "n": 6,
+              "mean_predicted": 0.355,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 4,
+              "mean_predicted": 0.5834,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 19,
+              "mean_predicted": 0.7729,
+              "observed": 0.7895
+            },
+            {
+              "bin": 8,
+              "n": 141,
+              "mean_predicted": 0.8575,
+              "observed": 0.8582
+            },
+            {
+              "bin": 9,
+              "n": 223,
+              "mean_predicted": 0.9588,
+              "observed": 0.9327
+            }
+          ]
+        },
+        "v2_intensity": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01504,
+          "auc": 0.9893,
+          "ece_10_bins": 0.0085,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5369,
+              "mean_predicted": 0.002,
+              "observed": 0.0063
+            },
+            {
+              "bin": 1,
+              "n": 77,
+              "mean_predicted": 0.1458,
+              "observed": 0.1169
+            },
+            {
+              "bin": 2,
+              "n": 45,
+              "mean_predicted": 0.2507,
+              "observed": 0.1778
+            },
+            {
+              "bin": 3,
+              "n": 17,
+              "mean_predicted": 0.3311,
+              "observed": 0.1176
+            },
+            {
+              "bin": 4,
+              "n": 7,
+              "mean_predicted": 0.4551,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 2,
+              "mean_predicted": 0.553,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1,
+              "mean_predicted": 0.6534,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 13,
+              "mean_predicted": 0.7628,
+              "observed": 0.9231
+            },
+            {
+              "bin": 8,
+              "n": 120,
+              "mean_predicted": 0.8589,
+              "observed": 0.825
+            },
+            {
+              "bin": 9,
+              "n": 251,
+              "mean_predicted": 0.9538,
+              "observed": 0.9283
+            }
+          ]
+        },
+        "v2_rebalance": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01465,
+          "auc": 0.9881,
+          "ece_10_bins": 0.0068,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5381,
+              "mean_predicted": 0.0022,
+              "observed": 0.0065
+            },
+            {
+              "bin": 1,
+              "n": 81,
+              "mean_predicted": 0.1499,
+              "observed": 0.1358
+            },
+            {
+              "bin": 2,
+              "n": 51,
+              "mean_predicted": 0.2412,
+              "observed": 0.1373
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3631,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 4,
+              "mean_predicted": 0.5825,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 22,
+              "mean_predicted": 0.7693,
+              "observed": 0.7727
+            },
+            {
+              "bin": 8,
+              "n": 140,
+              "mean_predicted": 0.8556,
+              "observed": 0.8643
+            },
+            {
+              "bin": 9,
+              "n": 221,
+              "mean_predicted": 0.9581,
+              "observed": 0.9321
+            }
+          ]
+        },
+        "trip_flow_v3": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01501,
+          "auc": 0.9883,
+          "ece_10_bins": 0.0097,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5381,
+              "mean_predicted": 0.002,
+              "observed": 0.0065
+            },
+            {
+              "bin": 1,
+              "n": 81,
+              "mean_predicted": 0.1497,
+              "observed": 0.1358
+            },
+            {
+              "bin": 2,
+              "n": 51,
+              "mean_predicted": 0.2411,
+              "observed": 0.1373
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3631,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 3,
+              "mean_predicted": 0.68,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 9,
+              "mean_predicted": 0.7744,
               "observed": 0.5556
             },
             {
               "bin": 8,
-              "n": 41,
-              "mean_predicted": 0.8479,
-              "observed": 0.8293
+              "n": 232,
+              "mean_predicted": 0.8576,
+              "observed": 0.9181
             },
             {
               "bin": 9,
-              "n": 93,
-              "mean_predicted": 0.9707,
-              "observed": 0.8925
+              "n": 143,
+              "mean_predicted": 0.9377,
+              "observed": 0.8811
+            }
+          ]
+        },
+        "trip_flow_v4": {
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01469,
+          "auc": 0.9896,
+          "ece_10_bins": 0.008,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5368,
+              "mean_predicted": 0.002,
+              "observed": 0.0065
+            },
+            {
+              "bin": 1,
+              "n": 75,
+              "mean_predicted": 0.1384,
+              "observed": 0.0933
+            },
+            {
+              "bin": 2,
+              "n": 70,
+              "mean_predicted": 0.2415,
+              "observed": 0.1571
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3684,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 4,
+              "mean_predicted": 0.5631,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 42,
+              "mean_predicted": 0.7716,
+              "observed": 0.8333
+            },
+            {
+              "bin": 8,
+              "n": 129,
+              "mean_predicted": 0.8563,
+              "observed": 0.8682
+            },
+            {
+              "bin": 9,
+              "n": 212,
+              "mean_predicted": 0.9592,
+              "observed": 0.9292
             }
           ]
         },
         "persistence": {
-          "n": 2718,
-          "positives": 233,
-          "prevalence": 0.0857,
-          "brier": 0.03642,
-          "auc": 0.879,
-          "ece_10_bins": 0.0364,
+          "n": 5902,
+          "positives": 397,
+          "prevalence": 0.0673,
+          "brier": 0.01627,
+          "auc": 0.9293,
+          "ece_10_bins": 0.0163,
           "calibration": [
             {
               "bin": 0,
-              "n": 2490,
+              "n": 5515,
               "mean_predicted": 0.0,
-              "observed": 0.0209
+              "observed": 0.0096
             },
             {
               "bin": 9,
-              "n": 228,
+              "n": 387,
               "mean_predicted": 1.0,
-              "observed": 0.7939
+              "observed": 0.8889
             }
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.2227
+          "trip_flow": 0.099,
+          "trip_flow_v2": 0.0658,
+          "v2_censor": 0.091,
+          "v2_intensity": 0.0756,
+          "v2_rebalance": 0.0996,
+          "trip_flow_v3": 0.0774,
+          "trip_flow_v4": 0.0971
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02169,
+          "auc": 0.9875,
+          "ece_10_bins": 0.0101,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5052,
+              "mean_predicted": 0.005,
+              "observed": 0.0051
+            },
+            {
+              "bin": 1,
+              "n": 115,
+              "mean_predicted": 0.1347,
+              "observed": 0.087
+            },
+            {
+              "bin": 2,
+              "n": 93,
+              "mean_predicted": 0.2346,
+              "observed": 0.3441
+            },
+            {
+              "bin": 3,
+              "n": 22,
+              "mean_predicted": 0.3338,
+              "observed": 0.2273
+            },
+            {
+              "bin": 5,
+              "n": 59,
+              "mean_predicted": 0.5522,
+              "observed": 0.7288
+            },
+            {
+              "bin": 6,
+              "n": 55,
+              "mean_predicted": 0.6317,
+              "observed": 0.8545
+            },
+            {
+              "bin": 7,
+              "n": 54,
+              "mean_predicted": 0.7659,
+              "observed": 0.7037
+            },
+            {
+              "bin": 8,
+              "n": 133,
+              "mean_predicted": 0.8541,
+              "observed": 0.8872
+            },
+            {
+              "bin": 9,
+              "n": 319,
+              "mean_predicted": 0.9654,
+              "observed": 0.9342
+            }
+          ]
+        },
+        "trip_flow_v2": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02173,
+          "auc": 0.9879,
+          "ece_10_bins": 0.0084,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 4999,
+              "mean_predicted": 0.0051,
+              "observed": 0.0044
+            },
+            {
+              "bin": 1,
+              "n": 146,
+              "mean_predicted": 0.1467,
+              "observed": 0.0753
+            },
+            {
+              "bin": 2,
+              "n": 73,
+              "mean_predicted": 0.2543,
+              "observed": 0.3562
+            },
+            {
+              "bin": 3,
+              "n": 36,
+              "mean_predicted": 0.3393,
+              "observed": 0.1667
+            },
+            {
+              "bin": 4,
+              "n": 23,
+              "mean_predicted": 0.4421,
+              "observed": 0.3043
+            },
+            {
+              "bin": 5,
+              "n": 7,
+              "mean_predicted": 0.554,
+              "observed": 0.4286
+            },
+            {
+              "bin": 6,
+              "n": 13,
+              "mean_predicted": 0.6657,
+              "observed": 0.9231
+            },
+            {
+              "bin": 7,
+              "n": 106,
+              "mean_predicted": 0.762,
+              "observed": 0.7453
+            },
+            {
+              "bin": 8,
+              "n": 158,
+              "mean_predicted": 0.8505,
+              "observed": 0.8544
+            },
+            {
+              "bin": 9,
+              "n": 341,
+              "mean_predicted": 0.9631,
+              "observed": 0.9267
+            }
+          ]
+        },
+        "v2_censor": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02186,
+          "auc": 0.9887,
+          "ece_10_bins": 0.0131,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5020,
+              "mean_predicted": 0.0049,
+              "observed": 0.005
+            },
+            {
+              "bin": 1,
+              "n": 120,
+              "mean_predicted": 0.1472,
+              "observed": 0.075
+            },
+            {
+              "bin": 2,
+              "n": 72,
+              "mean_predicted": 0.2513,
+              "observed": 0.3611
+            },
+            {
+              "bin": 3,
+              "n": 53,
+              "mean_predicted": 0.3373,
+              "observed": 0.1509
+            },
+            {
+              "bin": 4,
+              "n": 16,
+              "mean_predicted": 0.4487,
+              "observed": 0.25
+            },
+            {
+              "bin": 5,
+              "n": 12,
+              "mean_predicted": 0.5369,
+              "observed": 0.25
+            },
+            {
+              "bin": 6,
+              "n": 96,
+              "mean_predicted": 0.6357,
+              "observed": 0.875
+            },
+            {
+              "bin": 7,
+              "n": 58,
+              "mean_predicted": 0.7608,
+              "observed": 0.6897
+            },
+            {
+              "bin": 8,
+              "n": 132,
+              "mean_predicted": 0.8529,
+              "observed": 0.8939
+            },
+            {
+              "bin": 9,
+              "n": 323,
+              "mean_predicted": 0.9647,
+              "observed": 0.9288
+            }
+          ]
+        },
+        "v2_intensity": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02132,
+          "auc": 0.987,
+          "ece_10_bins": 0.0066,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5044,
+              "mean_predicted": 0.0049,
+              "observed": 0.0048
+            },
+            {
+              "bin": 1,
+              "n": 143,
+              "mean_predicted": 0.1413,
+              "observed": 0.0979
+            },
+            {
+              "bin": 2,
+              "n": 63,
+              "mean_predicted": 0.2343,
+              "observed": 0.381
+            },
+            {
+              "bin": 3,
+              "n": 19,
+              "mean_predicted": 0.346,
+              "observed": 0.3684
+            },
+            {
+              "bin": 4,
+              "n": 11,
+              "mean_predicted": 0.4329,
+              "observed": 0.3636
+            },
+            {
+              "bin": 5,
+              "n": 5,
+              "mean_predicted": 0.5528,
+              "observed": 0.4
+            },
+            {
+              "bin": 6,
+              "n": 21,
+              "mean_predicted": 0.6619,
+              "observed": 1.0
+            },
+            {
+              "bin": 7,
+              "n": 111,
+              "mean_predicted": 0.7439,
+              "observed": 0.7477
+            },
+            {
+              "bin": 8,
+              "n": 148,
+              "mean_predicted": 0.8535,
+              "observed": 0.8446
+            },
+            {
+              "bin": 9,
+              "n": 337,
+              "mean_predicted": 0.9639,
+              "observed": 0.9288
+            }
+          ]
+        },
+        "v2_rebalance": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02172,
+          "auc": 0.9867,
+          "ece_10_bins": 0.0098,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5049,
+              "mean_predicted": 0.0054,
+              "observed": 0.0051
+            },
+            {
+              "bin": 1,
+              "n": 113,
+              "mean_predicted": 0.1335,
+              "observed": 0.0885
+            },
+            {
+              "bin": 2,
+              "n": 98,
+              "mean_predicted": 0.2354,
+              "observed": 0.3265
+            },
+            {
+              "bin": 3,
+              "n": 22,
+              "mean_predicted": 0.3353,
+              "observed": 0.2273
+            },
+            {
+              "bin": 5,
+              "n": 59,
+              "mean_predicted": 0.5527,
+              "observed": 0.7288
+            },
+            {
+              "bin": 6,
+              "n": 55,
+              "mean_predicted": 0.6323,
+              "observed": 0.8545
+            },
+            {
+              "bin": 7,
+              "n": 55,
+              "mean_predicted": 0.7665,
+              "observed": 0.7091
+            },
+            {
+              "bin": 8,
+              "n": 132,
+              "mean_predicted": 0.8544,
+              "observed": 0.8864
+            },
+            {
+              "bin": 9,
+              "n": 319,
+              "mean_predicted": 0.9651,
+              "observed": 0.9342
+            }
+          ]
+        },
+        "trip_flow_v3": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02136,
+          "auc": 0.9867,
+          "ece_10_bins": 0.0055,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5052,
+              "mean_predicted": 0.005,
+              "observed": 0.0051
+            },
+            {
+              "bin": 1,
+              "n": 115,
+              "mean_predicted": 0.1347,
+              "observed": 0.087
+            },
+            {
+              "bin": 2,
+              "n": 93,
+              "mean_predicted": 0.2346,
+              "observed": 0.3441
+            },
+            {
+              "bin": 3,
+              "n": 22,
+              "mean_predicted": 0.3338,
+              "observed": 0.2273
+            },
+            {
+              "bin": 6,
+              "n": 9,
+              "mean_predicted": 0.6571,
+              "observed": 0.8889
+            },
+            {
+              "bin": 7,
+              "n": 148,
+              "mean_predicted": 0.7688,
+              "observed": 0.8041
+            },
+            {
+              "bin": 8,
+              "n": 166,
+              "mean_predicted": 0.8332,
+              "observed": 0.8373
+            },
+            {
+              "bin": 9,
+              "n": 297,
+              "mean_predicted": 0.9554,
+              "observed": 0.936
+            }
+          ]
+        },
+        "trip_flow_v4": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02185,
+          "auc": 0.9887,
+          "ece_10_bins": 0.0094,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5037,
+              "mean_predicted": 0.005,
+              "observed": 0.0052
+            },
+            {
+              "bin": 1,
+              "n": 125,
+              "mean_predicted": 0.1347,
+              "observed": 0.088
+            },
+            {
+              "bin": 2,
+              "n": 95,
+              "mean_predicted": 0.2393,
+              "observed": 0.2947
+            },
+            {
+              "bin": 3,
+              "n": 23,
+              "mean_predicted": 0.3295,
+              "observed": 0.3478
+            },
+            {
+              "bin": 4,
+              "n": 9,
+              "mean_predicted": 0.466,
+              "observed": 0.1111
+            },
+            {
+              "bin": 5,
+              "n": 85,
+              "mean_predicted": 0.5578,
+              "observed": 0.8471
+            },
+            {
+              "bin": 6,
+              "n": 23,
+              "mean_predicted": 0.646,
+              "observed": 0.7391
+            },
+            {
+              "bin": 7,
+              "n": 65,
+              "mean_predicted": 0.7605,
+              "observed": 0.7692
+            },
+            {
+              "bin": 8,
+              "n": 133,
+              "mean_predicted": 0.8538,
+              "observed": 0.8797
+            },
+            {
+              "bin": 9,
+              "n": 307,
+              "mean_predicted": 0.9657,
+              "observed": 0.9349
+            }
+          ]
+        },
+        "persistence": {
+          "n": 5902,
+          "positives": 617,
+          "prevalence": 0.1045,
+          "brier": 0.02525,
+          "auc": 0.9337,
+          "ece_10_bins": 0.0252,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 5282,
+              "mean_predicted": 0.0,
+              "observed": 0.0138
+            },
+            {
+              "bin": 9,
+              "n": 620,
+              "mean_predicted": 1.0,
+              "observed": 0.8774
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.141,
+          "trip_flow_v2": 0.1394,
+          "v2_censor": 0.1343,
+          "v2_intensity": 0.1556,
+          "v2_rebalance": 0.1398,
+          "trip_flow_v3": 0.1541,
+          "trip_flow_v4": 0.1347
         }
       }
     }
   },
   "six_2022_stations": {
-    "n_origins": 714,
+    "n_origins": 1506,
     "stations": [
       "Benson Ave & Church St",
       "Central St Metra",
@@ -217,30 +1003,30 @@
     "scores": {
       "no_bike": {
         "trip_flow": {
-          "n": 714,
-          "positives": 3,
-          "prevalence": 0.0042,
-          "brier": 0.00558,
-          "auc": 0.9878,
-          "ece_10_bins": 0.0091,
+          "n": 1506,
+          "positives": 6,
+          "prevalence": 0.004,
+          "brier": 0.00565,
+          "auc": 0.9819,
+          "ece_10_bins": 0.0056,
           "calibration": [
             {
               "bin": 0,
-              "n": 700,
-              "mean_predicted": 0.0011,
-              "observed": 0.0
+              "n": 1469,
+              "mean_predicted": 0.0008,
+              "observed": 0.0007
             },
             {
               "bin": 1,
-              "n": 6,
-              "mean_predicted": 0.1041,
-              "observed": 0.5
+              "n": 13,
+              "mean_predicted": 0.1124,
+              "observed": 0.2308
             },
             {
               "bin": 2,
-              "n": 3,
-              "mean_predicted": 0.2889,
-              "observed": 0.0
+              "n": 16,
+              "mean_predicted": 0.2499,
+              "observed": 0.125
             },
             {
               "bin": 3,
@@ -250,111 +1036,241 @@
             },
             {
               "bin": 5,
+              "n": 4,
+              "mean_predicted": 0.5826,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1,
+              "mean_predicted": 0.7944,
+              "observed": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1,
+              "mean_predicted": 0.8111,
+              "observed": 0.0
+            }
+          ]
+        },
+        "trip_flow_v2": {
+          "n": 1506,
+          "positives": 6,
+          "prevalence": 0.004,
+          "brier": 0.00703,
+          "auc": 0.9767,
+          "ece_10_bins": 0.0079,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1465,
+              "mean_predicted": 0.0012,
+              "observed": 0.0014
+            },
+            {
+              "bin": 1,
+              "n": 14,
+              "mean_predicted": 0.1522,
+              "observed": 0.2143
+            },
+            {
+              "bin": 2,
+              "n": 6,
+              "mean_predicted": 0.2533,
+              "observed": 0.1667
+            },
+            {
+              "bin": 3,
+              "n": 7,
+              "mean_predicted": 0.3538,
+              "observed": 0.0
+            },
+            {
+              "bin": 4,
+              "n": 7,
+              "mean_predicted": 0.4439,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
               "n": 3,
-              "mean_predicted": 0.5821,
+              "mean_predicted": 0.5367,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1,
+              "mean_predicted": 0.6545,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1,
+              "mean_predicted": 0.7141,
+              "observed": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 2,
+              "mean_predicted": 0.837,
+              "observed": 0.0
+            }
+          ]
+        },
+        "trip_flow_v4": {
+          "n": 1506,
+          "positives": 6,
+          "prevalence": 0.004,
+          "brier": 0.00557,
+          "auc": 0.9822,
+          "ece_10_bins": 0.0056,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1469,
+              "mean_predicted": 0.0009,
+              "observed": 0.0007
+            },
+            {
+              "bin": 1,
+              "n": 13,
+              "mean_predicted": 0.1224,
+              "observed": 0.2308
+            },
+            {
+              "bin": 2,
+              "n": 16,
+              "mean_predicted": 0.259,
+              "observed": 0.125
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3684,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 4,
+              "mean_predicted": 0.5631,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 1,
+              "mean_predicted": 0.7841,
+              "observed": 0.0
+            },
+            {
+              "bin": 8,
+              "n": 1,
+              "mean_predicted": 0.8004,
               "observed": 0.0
             }
           ]
         },
         "model_2022": {
-          "n": 714,
-          "positives": 3,
-          "prevalence": 0.0042,
-          "brier": 0.00707,
-          "auc": 0.9459,
-          "ece_10_bins": 0.0039,
+          "n": 1506,
+          "positives": 6,
+          "prevalence": 0.004,
+          "brier": 0.00653,
+          "auc": 0.9709,
+          "ece_10_bins": 0.0042,
           "calibration": [
             {
               "bin": 0,
-              "n": 711,
-              "mean_predicted": 0.0038,
-              "observed": 0.0042
+              "n": 1500,
+              "mean_predicted": 0.0031,
+              "observed": 0.004
             },
             {
               "bin": 8,
-              "n": 3,
+              "n": 6,
               "mean_predicted": 0.824,
               "observed": 0.0
             }
           ]
         },
         "persistence": {
-          "n": 714,
-          "positives": 3,
-          "prevalence": 0.0042,
-          "brier": 0.0084,
-          "auc": 0.4979,
-          "ece_10_bins": 0.0084,
+          "n": 1506,
+          "positives": 6,
+          "prevalence": 0.004,
+          "brier": 0.00797,
+          "auc": 0.498,
+          "ece_10_bins": 0.008,
           "calibration": [
             {
               "bin": 0,
-              "n": 711,
+              "n": 1500,
               "mean_predicted": 0.0,
-              "observed": 0.0042
+              "observed": 0.004
             },
             {
               "bin": 9,
-              "n": 3,
+              "n": 6,
               "mean_predicted": 1.0,
               "observed": 0.0
             }
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.3357,
-          "model_2022": 0.1583
+          "trip_flow": 0.2911,
+          "trip_flow_v2": 0.1179,
+          "trip_flow_v4": 0.3011,
+          "model_2022": 0.1807
         }
       },
       "no_dock": {
         "trip_flow": {
-          "n": 714,
-          "positives": 111,
-          "prevalence": 0.1555,
-          "brier": 0.06916,
-          "auc": 0.9465,
-          "ece_10_bins": 0.061,
+          "n": 1506,
+          "positives": 153,
+          "prevalence": 0.1016,
+          "brier": 0.04147,
+          "auc": 0.9671,
+          "ece_10_bins": 0.0374,
           "calibration": [
             {
               "bin": 0,
-              "n": 552,
-              "mean_predicted": 0.0028,
-              "observed": 0.0181
+              "n": 1237,
+              "mean_predicted": 0.0022,
+              "observed": 0.0081
             },
             {
               "bin": 1,
-              "n": 19,
-              "mean_predicted": 0.1385,
-              "observed": 0.1053
+              "n": 47,
+              "mean_predicted": 0.1356,
+              "observed": 0.0426
             },
             {
               "bin": 2,
-              "n": 26,
-              "mean_predicted": 0.2466,
-              "observed": 0.8077
+              "n": 56,
+              "mean_predicted": 0.2332,
+              "observed": 0.4286
             },
             {
               "bin": 3,
-              "n": 10,
-              "mean_predicted": 0.3269,
-              "observed": 0.2
+              "n": 19,
+              "mean_predicted": 0.3266,
+              "observed": 0.2632
             },
             {
               "bin": 5,
-              "n": 32,
-              "mean_predicted": 0.5454,
-              "observed": 0.6875
+              "n": 56,
+              "mean_predicted": 0.5499,
+              "observed": 0.7679
             },
             {
               "bin": 6,
-              "n": 28,
-              "mean_predicted": 0.6385,
-              "observed": 0.8214
+              "n": 43,
+              "mean_predicted": 0.6349,
+              "observed": 0.8837
             },
             {
               "bin": 7,
-              "n": 20,
-              "mean_predicted": 0.7664,
-              "observed": 0.5
+              "n": 21,
+              "mean_predicted": 0.7635,
+              "observed": 0.4762
             },
             {
               "bin": 8,
@@ -370,59 +1286,201 @@
             }
           ]
         },
-        "model_2022": {
-          "n": 714,
-          "positives": 111,
-          "prevalence": 0.1555,
-          "brier": 0.07116,
-          "auc": 0.9343,
-          "ece_10_bins": 0.0388,
+        "trip_flow_v2": {
+          "n": 1506,
+          "positives": 153,
+          "prevalence": 0.1016,
+          "brier": 0.03992,
+          "auc": 0.9688,
+          "ece_10_bins": 0.0231,
           "calibration": [
             {
               "bin": 0,
-              "n": 544,
-              "mean_predicted": 0.003,
-              "observed": 0.0184
+              "n": 1223,
+              "mean_predicted": 0.002,
+              "observed": 0.0074
             },
             {
               "bin": 1,
-              "n": 63,
-              "mean_predicted": 0.144,
-              "observed": 0.3968
+              "n": 55,
+              "mean_predicted": 0.1517,
+              "observed": 0.0545
+            },
+            {
+              "bin": 2,
+              "n": 46,
+              "mean_predicted": 0.2618,
+              "observed": 0.413
+            },
+            {
+              "bin": 3,
+              "n": 18,
+              "mean_predicted": 0.3381,
+              "observed": 0.1667
+            },
+            {
+              "bin": 4,
+              "n": 15,
+              "mean_predicted": 0.4412,
+              "observed": 0.4
+            },
+            {
+              "bin": 5,
+              "n": 5,
+              "mean_predicted": 0.55,
+              "observed": 0.6
+            },
+            {
+              "bin": 6,
+              "n": 10,
+              "mean_predicted": 0.6678,
+              "observed": 1.0
             },
             {
               "bin": 7,
-              "n": 107,
+              "n": 81,
+              "mean_predicted": 0.766,
+              "observed": 0.7654
+            },
+            {
+              "bin": 8,
+              "n": 36,
+              "mean_predicted": 0.8386,
+              "observed": 0.6667
+            },
+            {
+              "bin": 9,
+              "n": 17,
+              "mean_predicted": 0.9679,
+              "observed": 0.8235
+            }
+          ]
+        },
+        "trip_flow_v4": {
+          "n": 1506,
+          "positives": 153,
+          "prevalence": 0.1016,
+          "brier": 0.04194,
+          "auc": 0.9719,
+          "ece_10_bins": 0.0371,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1237,
+              "mean_predicted": 0.0023,
+              "observed": 0.0081
+            },
+            {
+              "bin": 1,
+              "n": 45,
+              "mean_predicted": 0.1367,
+              "observed": 0.0667
+            },
+            {
+              "bin": 2,
+              "n": 55,
+              "mean_predicted": 0.2354,
+              "observed": 0.3636
+            },
+            {
+              "bin": 3,
+              "n": 22,
+              "mean_predicted": 0.328,
+              "observed": 0.3636
+            },
+            {
+              "bin": 4,
+              "n": 7,
+              "mean_predicted": 0.4833,
+              "observed": 0.1429
+            },
+            {
+              "bin": 5,
+              "n": 71,
+              "mean_predicted": 0.5518,
+              "observed": 0.9014
+            },
+            {
+              "bin": 6,
+              "n": 22,
+              "mean_predicted": 0.6456,
+              "observed": 0.7273
+            },
+            {
+              "bin": 7,
+              "n": 18,
+              "mean_predicted": 0.7533,
+              "observed": 0.5
+            },
+            {
+              "bin": 8,
+              "n": 12,
+              "mean_predicted": 0.8178,
+              "observed": 0.6667
+            },
+            {
+              "bin": 9,
+              "n": 17,
+              "mean_predicted": 0.9659,
+              "observed": 0.8235
+            }
+          ]
+        },
+        "model_2022": {
+          "n": 1506,
+          "positives": 153,
+          "prevalence": 0.1016,
+          "brier": 0.0409,
+          "auc": 0.9561,
+          "ece_10_bins": 0.0127,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 1204,
+              "mean_predicted": 0.002,
+              "observed": 0.0083
+            },
+            {
+              "bin": 1,
+              "n": 155,
+              "mean_predicted": 0.144,
+              "observed": 0.2
+            },
+            {
+              "bin": 7,
+              "n": 147,
               "mean_predicted": 0.742,
-              "observed": 0.7103
+              "observed": 0.7619
             }
           ]
         },
         "persistence": {
-          "n": 714,
-          "positives": 111,
-          "prevalence": 0.1555,
-          "brier": 0.09244,
-          "auc": 0.8166,
-          "ece_10_bins": 0.0924,
+          "n": 1506,
+          "positives": 153,
+          "prevalence": 0.1016,
+          "brier": 0.05046,
+          "auc": 0.8531,
+          "ece_10_bins": 0.0505,
           "calibration": [
             {
               "bin": 0,
-              "n": 607,
+              "n": 1359,
               "mean_predicted": 0.0,
-              "observed": 0.0577
+              "observed": 0.0302
             },
             {
               "bin": 9,
-              "n": 107,
+              "n": 147,
               "mean_predicted": 1.0,
-              "observed": 0.7103
+              "observed": 0.7619
             }
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.2518,
-          "model_2022": 0.2302
+          "trip_flow": 0.1782,
+          "trip_flow_v2": 0.2089,
+          "trip_flow_v4": 0.1688,
+          "model_2022": 0.1895
         }
       }
     }
@@ -452,6 +1510,34 @@
             }
           ]
         },
+        "trip_flow_v2": {
+          "n": 321,
+          "positives": 19,
+          "prevalence": 0.0592,
+          "brier": 0.01795,
+          "auc": 0.9897,
+          "ece_10_bins": 0.0154,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 301,
+              "mean_predicted": 0.0013,
+              "observed": 0.01
+            },
+            {
+              "bin": 1,
+              "n": 1,
+              "mean_predicted": 0.1399,
+              "observed": 0.0
+            },
+            {
+              "bin": 9,
+              "n": 19,
+              "mean_predicted": 0.9566,
+              "observed": 0.8421
+            }
+          ]
+        },
         "persistence": {
           "n": 321,
           "positives": 19,
@@ -475,7 +1561,8 @@
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.0471
+          "trip_flow": 0.0471,
+          "trip_flow_v2": 0.0396
         }
       },
       "no_dock": {
@@ -519,6 +1606,40 @@
             }
           ]
         },
+        "trip_flow_v2": {
+          "n": 321,
+          "positives": 21,
+          "prevalence": 0.0654,
+          "brier": 0.0296,
+          "auc": 0.979,
+          "ece_10_bins": 0.0227,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 299,
+              "mean_predicted": 0.0049,
+              "observed": 0.0134
+            },
+            {
+              "bin": 2,
+              "n": 5,
+              "mean_predicted": 0.2506,
+              "observed": 0.8
+            },
+            {
+              "bin": 8,
+              "n": 13,
+              "mean_predicted": 0.8507,
+              "observed": 0.7692
+            },
+            {
+              "bin": 9,
+              "n": 4,
+              "mean_predicted": 0.9919,
+              "observed": 0.75
+            }
+          ]
+        },
         "persistence": {
           "n": 321,
           "positives": 21,
@@ -542,37 +1663,38 @@
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.2006
+          "trip_flow": 0.2006,
+          "trip_flow_v2": 0.2081
         }
       }
     },
     "2026-10-17": {
       "no_bike": {
         "trip_flow": {
-          "n": 2397,
-          "positives": 101,
-          "prevalence": 0.0421,
-          "brier": 0.01094,
-          "auc": 0.9902,
-          "ece_10_bins": 0.0055,
+          "n": 3008,
+          "positives": 161,
+          "prevalence": 0.0535,
+          "brier": 0.0135,
+          "auc": 0.9897,
+          "ece_10_bins": 0.0059,
           "calibration": [
             {
               "bin": 0,
-              "n": 2267,
-              "mean_predicted": 0.0027,
-              "observed": 0.0049
+              "n": 2794,
+              "mean_predicted": 0.0025,
+              "observed": 0.005
             },
             {
               "bin": 1,
-              "n": 20,
-              "mean_predicted": 0.1332,
+              "n": 28,
+              "mean_predicted": 0.131,
               "observed": 0.25
             },
             {
               "bin": 2,
-              "n": 16,
-              "mean_predicted": 0.2493,
-              "observed": 0.25
+              "n": 29,
+              "mean_predicted": 0.2456,
+              "observed": 0.2069
             },
             {
               "bin": 3,
@@ -582,8 +1704,8 @@
             },
             {
               "bin": 5,
-              "n": 3,
-              "mean_predicted": 0.5821,
+              "n": 4,
+              "mean_predicted": 0.5826,
               "observed": 0.0
             },
             {
@@ -594,70 +1716,141 @@
             },
             {
               "bin": 8,
-              "n": 46,
-              "mean_predicted": 0.8575,
-              "observed": 0.913
+              "n": 65,
+              "mean_predicted": 0.8611,
+              "observed": 0.8769
             },
             {
               "bin": 9,
-              "n": 29,
-              "mean_predicted": 0.9462,
-              "observed": 0.9655
+              "n": 72,
+              "mean_predicted": 0.9468,
+              "observed": 0.9167
             }
           ]
         },
-        "persistence": {
-          "n": 2397,
-          "positives": 101,
-          "prevalence": 0.0421,
-          "brier": 0.01293,
-          "auc": 0.8986,
-          "ece_10_bins": 0.0129,
+        "trip_flow_v2": {
+          "n": 3008,
+          "positives": 161,
+          "prevalence": 0.0535,
+          "brier": 0.014,
+          "auc": 0.9889,
+          "ece_10_bins": 0.0065,
           "calibration": [
             {
               "bin": 0,
-              "n": 2305,
-              "mean_predicted": 0.0,
-              "observed": 0.0087
+              "n": 2774,
+              "mean_predicted": 0.0023,
+              "observed": 0.0047
+            },
+            {
+              "bin": 1,
+              "n": 39,
+              "mean_predicted": 0.1417,
+              "observed": 0.1538
+            },
+            {
+              "bin": 2,
+              "n": 22,
+              "mean_predicted": 0.2598,
+              "observed": 0.2727
+            },
+            {
+              "bin": 3,
+              "n": 10,
+              "mean_predicted": 0.3476,
+              "observed": 0.2
+            },
+            {
+              "bin": 4,
+              "n": 7,
+              "mean_predicted": 0.4439,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 3,
+              "mean_predicted": 0.5367,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1,
+              "mean_predicted": 0.6545,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 9,
+              "mean_predicted": 0.7665,
+              "observed": 0.8889
+            },
+            {
+              "bin": 8,
+              "n": 51,
+              "mean_predicted": 0.8589,
+              "observed": 0.8431
             },
             {
               "bin": 9,
               "n": 92,
+              "mean_predicted": 0.9397,
+              "observed": 0.9022
+            }
+          ]
+        },
+        "persistence": {
+          "n": 3008,
+          "positives": 161,
+          "prevalence": 0.0535,
+          "brier": 0.01596,
+          "auc": 0.9125,
+          "ece_10_bins": 0.016,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2853,
+              "mean_predicted": 0.0,
+              "observed": 0.0095
+            },
+            {
+              "bin": 9,
+              "n": 155,
               "mean_predicted": 1.0,
-              "observed": 0.8804
+              "observed": 0.8645
             }
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.1539
+          "trip_flow": 0.1541,
+          "trip_flow_v2": 0.1228
         }
       },
       "no_dock": {
         "trip_flow": {
-          "n": 2397,
-          "positives": 212,
-          "prevalence": 0.0884,
-          "brier": 0.0281,
-          "auc": 0.9791,
-          "ece_10_bins": 0.0192,
+          "n": 3008,
+          "positives": 310,
+          "prevalence": 0.1031,
+          "brier": 0.02642,
+          "auc": 0.9832,
+          "ece_10_bins": 0.017,
           "calibration": [
             {
               "bin": 0,
-              "n": 2100,
-              "mean_predicted": 0.0038,
-              "observed": 0.0076
+              "n": 2581,
+              "mean_predicted": 0.0044,
+              "observed": 0.0066
             },
             {
               "bin": 1,
-              "n": 45,
-              "mean_predicted": 0.1428,
-              "observed": 0.1111
+              "n": 50,
+              "mean_predicted": 0.1414,
+              "observed": 0.1
             },
             {
               "bin": 2,
-              "n": 31,
-              "mean_predicted": 0.2437,
-              "observed": 0.6774
+              "n": 55,
+              "mean_predicted": 0.2394,
+              "observed": 0.4545
             },
             {
               "bin": 3,
@@ -673,55 +1866,559 @@
             },
             {
               "bin": 6,
-              "n": 33,
-              "mean_predicted": 0.6349,
-              "observed": 0.8182
+              "n": 40,
+              "mean_predicted": 0.6387,
+              "observed": 0.85
             },
             {
               "bin": 7,
-              "n": 22,
-              "mean_predicted": 0.7666,
-              "observed": 0.5
+              "n": 35,
+              "mean_predicted": 0.7664,
+              "observed": 0.5714
             },
             {
               "bin": 8,
-              "n": 33,
-              "mean_predicted": 0.8551,
-              "observed": 0.8485
+              "n": 70,
+              "mean_predicted": 0.8538,
+              "observed": 0.9143
             },
             {
               "bin": 9,
-              "n": 89,
-              "mean_predicted": 0.9698,
-              "observed": 0.8989
+              "n": 133,
+              "mean_predicted": 0.9659,
+              "observed": 0.9098
+            }
+          ]
+        },
+        "trip_flow_v2": {
+          "n": 3008,
+          "positives": 310,
+          "prevalence": 0.1031,
+          "brier": 0.02637,
+          "auc": 0.9851,
+          "ece_10_bins": 0.0115,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2564,
+              "mean_predicted": 0.0043,
+              "observed": 0.0051
+            },
+            {
+              "bin": 1,
+              "n": 64,
+              "mean_predicted": 0.143,
+              "observed": 0.125
+            },
+            {
+              "bin": 2,
+              "n": 36,
+              "mean_predicted": 0.2477,
+              "observed": 0.5
+            },
+            {
+              "bin": 3,
+              "n": 18,
+              "mean_predicted": 0.3446,
+              "observed": 0.2222
+            },
+            {
+              "bin": 4,
+              "n": 12,
+              "mean_predicted": 0.4375,
+              "observed": 0.4167
+            },
+            {
+              "bin": 5,
+              "n": 5,
+              "mean_predicted": 0.55,
+              "observed": 0.6
+            },
+            {
+              "bin": 6,
+              "n": 12,
+              "mean_predicted": 0.6682,
+              "observed": 1.0
+            },
+            {
+              "bin": 7,
+              "n": 65,
+              "mean_predicted": 0.7605,
+              "observed": 0.6923
+            },
+            {
+              "bin": 8,
+              "n": 94,
+              "mean_predicted": 0.8523,
+              "observed": 0.8085
+            },
+            {
+              "bin": 9,
+              "n": 138,
+              "mean_predicted": 0.9656,
+              "observed": 0.913
             }
           ]
         },
         "persistence": {
-          "n": 2397,
-          "positives": 212,
-          "prevalence": 0.0884,
-          "brier": 0.0363,
-          "auc": 0.8864,
-          "ece_10_bins": 0.0363,
+          "n": 3008,
+          "positives": 310,
+          "prevalence": 0.1031,
+          "brier": 0.03324,
+          "auc": 0.9115,
+          "ece_10_bins": 0.0332,
           "calibration": [
             {
               "bin": 0,
-              "n": 2186,
+              "n": 2696,
               "mean_predicted": 0.0,
-              "observed": 0.0201
+              "observed": 0.0182
             },
             {
               "bin": 9,
-              "n": 211,
+              "n": 312,
               "mean_predicted": 1.0,
-              "observed": 0.7962
+              "observed": 0.8365
             }
           ]
         },
         "brier_skill_vs_persistence": {
-          "trip_flow": 0.2259
+          "trip_flow": 0.2052,
+          "trip_flow_v2": 0.2067
         }
+      }
+    },
+    "2026-10-18": {
+      "no_bike": {
+        "trip_flow": {
+          "n": 2573,
+          "positives": 217,
+          "prevalence": 0.0843,
+          "brier": 0.01562,
+          "auc": 0.9897,
+          "ece_10_bins": 0.0098,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2285,
+              "mean_predicted": 0.0015,
+              "observed": 0.0079
+            },
+            {
+              "bin": 1,
+              "n": 53,
+              "mean_predicted": 0.1596,
+              "observed": 0.0755
+            },
+            {
+              "bin": 2,
+              "n": 22,
+              "mean_predicted": 0.2352,
+              "observed": 0.0455
+            },
+            {
+              "bin": 7,
+              "n": 8,
+              "mean_predicted": 0.7672,
+              "observed": 0.75
+            },
+            {
+              "bin": 8,
+              "n": 75,
+              "mean_predicted": 0.8515,
+              "observed": 0.8533
+            },
+            {
+              "bin": 9,
+              "n": 130,
+              "mean_predicted": 0.9659,
+              "observed": 0.9538
+            }
+          ]
+        },
+        "trip_flow_v2": {
+          "n": 2573,
+          "positives": 217,
+          "prevalence": 0.0843,
+          "brier": 0.01625,
+          "auc": 0.9874,
+          "ece_10_bins": 0.0123,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2280,
+              "mean_predicted": 0.0019,
+              "observed": 0.0079
+            },
+            {
+              "bin": 1,
+              "n": 41,
+              "mean_predicted": 0.1559,
+              "observed": 0.0732
+            },
+            {
+              "bin": 2,
+              "n": 24,
+              "mean_predicted": 0.2478,
+              "observed": 0.0833
+            },
+            {
+              "bin": 3,
+              "n": 12,
+              "mean_predicted": 0.3357,
+              "observed": 0.0
+            },
+            {
+              "bin": 4,
+              "n": 3,
+              "mean_predicted": 0.4103,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 4,
+              "mean_predicted": 0.7824,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 69,
+              "mean_predicted": 0.8649,
+              "observed": 0.8116
+            },
+            {
+              "bin": 9,
+              "n": 140,
+              "mean_predicted": 0.9629,
+              "observed": 0.9571
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2573,
+          "positives": 217,
+          "prevalence": 0.0843,
+          "brier": 0.01632,
+          "auc": 0.943,
+          "ece_10_bins": 0.0163,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2360,
+              "mean_predicted": 0.0,
+              "observed": 0.0097
+            },
+            {
+              "bin": 9,
+              "n": 213,
+              "mean_predicted": 1.0,
+              "observed": 0.9108
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.0429,
+          "trip_flow_v2": 0.0043
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 2573,
+          "positives": 286,
+          "prevalence": 0.1112,
+          "brier": 0.01513,
+          "auc": 0.9931,
+          "ece_10_bins": 0.0127,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2172,
+              "mean_predicted": 0.0057,
+              "observed": 0.0023
+            },
+            {
+              "bin": 1,
+              "n": 65,
+              "mean_predicted": 0.1296,
+              "observed": 0.0769
+            },
+            {
+              "bin": 2,
+              "n": 33,
+              "mean_predicted": 0.2257,
+              "observed": 0.0909
+            },
+            {
+              "bin": 3,
+              "n": 12,
+              "mean_predicted": 0.3395,
+              "observed": 0.25
+            },
+            {
+              "bin": 5,
+              "n": 25,
+              "mean_predicted": 0.5574,
+              "observed": 0.84
+            },
+            {
+              "bin": 6,
+              "n": 15,
+              "mean_predicted": 0.613,
+              "observed": 0.8667
+            },
+            {
+              "bin": 7,
+              "n": 14,
+              "mean_predicted": 0.7609,
+              "observed": 1.0
+            },
+            {
+              "bin": 8,
+              "n": 55,
+              "mean_predicted": 0.8597,
+              "observed": 0.8727
+            },
+            {
+              "bin": 9,
+              "n": 182,
+              "mean_predicted": 0.9643,
+              "observed": 0.956
+            }
+          ]
+        },
+        "trip_flow_v2": {
+          "n": 2573,
+          "positives": 286,
+          "prevalence": 0.1112,
+          "brier": 0.01533,
+          "auc": 0.9929,
+          "ece_10_bins": 0.0166,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2136,
+              "mean_predicted": 0.006,
+              "observed": 0.0023
+            },
+            {
+              "bin": 1,
+              "n": 82,
+              "mean_predicted": 0.1497,
+              "observed": 0.0366
+            },
+            {
+              "bin": 2,
+              "n": 32,
+              "mean_predicted": 0.2625,
+              "observed": 0.125
+            },
+            {
+              "bin": 3,
+              "n": 18,
+              "mean_predicted": 0.3341,
+              "observed": 0.1111
+            },
+            {
+              "bin": 4,
+              "n": 11,
+              "mean_predicted": 0.4472,
+              "observed": 0.1818
+            },
+            {
+              "bin": 5,
+              "n": 2,
+              "mean_predicted": 0.5639,
+              "observed": 0.0
+            },
+            {
+              "bin": 6,
+              "n": 1,
+              "mean_predicted": 0.6353,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 41,
+              "mean_predicted": 0.7644,
+              "observed": 0.8293
+            },
+            {
+              "bin": 8,
+              "n": 51,
+              "mean_predicted": 0.8471,
+              "observed": 0.9608
+            },
+            {
+              "bin": 9,
+              "n": 199,
+              "mean_predicted": 0.9607,
+              "observed": 0.9397
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2573,
+          "positives": 286,
+          "prevalence": 0.1112,
+          "brier": 0.01438,
+          "auc": 0.9674,
+          "ece_10_bins": 0.0144,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2282,
+              "mean_predicted": 0.0,
+              "observed": 0.007
+            },
+            {
+              "bin": 9,
+              "n": 291,
+              "mean_predicted": 1.0,
+              "observed": 0.9278
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": -0.0522,
+          "trip_flow_v2": -0.0661
+        }
+      }
+    }
+  },
+  "v3_since_freeze": {
+    "frozen_at": "2026-10-18T22:56:02+00:00",
+    "n_origins": 0,
+    "scores": {
+      "no_bike": null,
+      "no_dock": null
+    },
+    "brier_differences": {
+      "no_bike": {
+        "v3_minus_v1": null,
+        "v3_minus_persistence": null
+      },
+      "no_dock": {
+        "v3_minus_v1": null,
+        "v3_minus_persistence": null
+      }
+    },
+    "note": "Only this block is an out-of-sample test of v3; all-station v3 scores before frozen_at are biased."
+  },
+  "brier_differences": {
+    "no_bike": {
+      "v2_minus_v1": {
+        "diff": 0.00054,
+        "ci95": [
+          -9e-05,
+          0.00136
+        ],
+        "clusters": 77
+      },
+      "v2_minus_persistence": {
+        "diff": -0.00107,
+        "ci95": [
+          -0.00317,
+          0.00031
+        ],
+        "clusters": 77
+      },
+      "v1_minus_persistence": {
+        "diff": -0.00161,
+        "ci95": [
+          -0.0038,
+          3e-05
+        ],
+        "clusters": 77
+      },
+      "v2_minus_2022_six": {
+        "diff": 0.00049,
+        "ci95": [
+          -0.0001,
+          0.00128
+        ],
+        "clusters": 18
+      },
+      "v4_minus_v1": {
+        "diff": 4e-05,
+        "ci95": [
+          -8e-05,
+          0.00015
+        ],
+        "clusters": 77
+      },
+      "v4_minus_persistence": {
+        "diff": -0.00157,
+        "ci95": [
+          -0.00387,
+          0.00013
+        ],
+        "clusters": 77
+      },
+      "v4_minus_2022_six": {
+        "diff": -0.00096,
+        "ci95": [
+          -0.00314,
+          9e-05
+        ],
+        "clusters": 18
+      }
+    },
+    "no_dock": {
+      "v2_minus_v1": {
+        "diff": 5e-05,
+        "ci95": [
+          -0.00154,
+          0.00154
+        ],
+        "clusters": 77
+      },
+      "v2_minus_persistence": {
+        "diff": -0.00351,
+        "ci95": [
+          -0.00692,
+          -0.00054
+        ],
+        "clusters": 77
+      },
+      "v1_minus_persistence": {
+        "diff": -0.00356,
+        "ci95": [
+          -0.00738,
+          -0.00044
+        ],
+        "clusters": 77
+      },
+      "v2_minus_2022_six": {
+        "diff": -0.00098,
+        "ci95": [
+          -0.00291,
+          0.00067
+        ],
+        "clusters": 18
+      },
+      "v4_minus_v1": {
+        "diff": 0.00017,
+        "ci95": [
+          -0.0001,
+          0.00048
+        ],
+        "clusters": 77
+      },
+      "v4_minus_persistence": {
+        "diff": -0.00339,
+        "ci95": [
+          -0.00736,
+          -0.00012
+        ],
+        "clusters": 77
+      },
+      "v4_minus_2022_six": {
+        "diff": 0.00104,
+        "ci95": [
+          -0.00475,
+          0.00785
+        ],
+        "clusters": 18
       }
     }
   }

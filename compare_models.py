@@ -1,7 +1,14 @@
 """Compare 30-minute risk methods on the locally collected 2026 snapshots.
 
 Methods, scored on identical origins:
-  trip_flow   - models/trip_flow.json (2025-10 .. 2026-09 trips; trained before any snapshot)
+  trip_flow   - v1, models/trip_flow.json (2025-10 .. 2026-09 trips; trained before any snapshot)
+  trip_flow_v2 - v1 + hidden-demand, live-intensity and rebalancing corrections (trip_flow_v2.py),
+                each estimated only from snapshots collected before the origin; the
+                v2_censor / v2_intensity / v2_rebalance rows add one component at a time
+  trip_flow_v3 - v1 + state-duration correction for already-empty/full stations (trip_flow_v3.py);
+                its out-of-sample test is only the block "v3_since_freeze"
+  trip_flow_v4 - v1 rates x weather multiplier (trip_flow_v4.py), coefficients fitted on the
+                2025-10 .. 2026-09 trips only, so every snapshot is out of sample
   model_2022  - the deployed 2022 transition model, as recorded live in each snapshot
                 (only the six stations with 2022 history), kept as a second baseline
   persistence - "the current state stays the same" baseline
@@ -17,16 +24,40 @@ from __future__ import annotations
 import bisect
 import datetime as dt
 import json
+import random
 from collections import Counter, defaultdict
 
 from analytics import LOCAL
 from pilot import ROOT
 from train import metrics
 from trip_flow import load_model, predict
+from trip_flow_v2 import Network, predict_v2
+from trip_flow_v3 import DurationIndex, load_config as load_v3_config, predict_v3
+from trip_flow_v4 import load_v4, predict_v4
+import weather
 
 SOURCE = ROOT / "data" / "raw" / "prospective_2026.jsonl"
 OUTPUT = ROOT / "data" / "model_comparison.json"
 TARGETS = (("no_bike", "bikes"), ("no_dock", "docks"))
+V2_VARIANTS = {"trip_flow_v2": ("censor", "intensity", "rebalance"), "v2_censor": ("censor",),
+               "v2_intensity": ("intensity",), "v2_rebalance": ("rebalance",)}
+ALL_METHODS = ("trip_flow", *V2_VARIANTS, "trip_flow_v3", "trip_flow_v4", "persistence")
+
+
+def bootstrap_diff(rows: list[dict], a: str, b: str, key: str, draws: int = 2000) -> dict | None:
+    """Brier(a) - Brier(b) with a 95% interval from resampling whole station-days."""
+    rows = [r for r in rows if r.get(a) and r.get(b)]
+    if not rows:
+        return None
+    clusters: dict = {}
+    for r in rows:
+        clusters.setdefault((r["station_id"], r["date"]), []).append(r)
+    groups = list(clusters.values())
+    diff = lambda rs: sum((r[a][key] - r["truth"][key]) ** 2 - (r[b][key] - r["truth"][key]) ** 2 for r in rs) / len(rs)
+    rng = random.Random(1)
+    sims = sorted(diff([r for g in rng.choices(groups, k=len(groups)) for r in g]) for _ in range(draws))
+    return {"diff": round(diff(rows), 5), "ci95": [round(sims[int(.025 * draws)], 5), round(sims[int(.975 * draws)], 5)],
+            "clusters": len(groups)}
 
 
 def brier_skill(score: dict | None, reference: dict | None) -> float | None:
@@ -64,6 +95,11 @@ def main() -> None:
             polls += 1
             for station in frame.get("stations", []):
                 by_station[str(station["station_id"])].append((stamp, station))
+    network = Network(by_station)
+    durations = DurationIndex(by_station)
+    v3_config = load_v3_config()
+    v3_frozen = dt.datetime.fromisoformat(v3_config["frozen_at"]) if v3_config else None
+    v4_model, weather_table = load_v4(), weather.load()
     counts = Counter()
     rows = []
     for station_id, series in by_station.items():
@@ -100,13 +136,24 @@ def main() -> None:
             rows.append({
                 "station_id": station_id,
                 "date": stamp.astimezone(LOCAL).date().isoformat(),
+                "time": stamp,
                 "truth": {k: int(actual[c] == 0) for k, c in TARGETS},
                 "persistence": {k: float(station[c] == 0) for k, c in TARGETS},
                 "trip_flow": {k: flow[k + "_30m"] for k, _ in TARGETS},
                 "model_2022": {k: old[k + "_30m"] for k, _ in TARGETS} if old else None,
             })
+            for name, parts in V2_VARIANTS.items():
+                v2 = predict_v2(model, network, station_id, station["bikes"], station["docks"], stamp, parts)
+                rows[-1][name] = {k: v2[k + "_30m"] for k, _ in TARGETS}
+            v3 = predict_v3(model, durations, station_id, station["bikes"], station["docks"], stamp)
+            rows[-1]["trip_flow_v3"] = {k: v3[k + "_30m"] for k, _ in TARGETS}
+            v4 = predict_v4(model, v4_model, weather_table, station_id, station["bikes"], station["docks"], stamp) if v4_model else flow
+            rows[-1]["trip_flow_v4"] = {k: v4[k + "_30m"] for k, _ in TARGETS}
+            if v4_model and v4.get("weather_missing"):
+                counts["v4_weather_missing"] += 1
             counts["matched"] += 1
     six = [r for r in rows if r["model_2022"]]
+    after_freeze = [r for r in rows if v3_frozen and r["time"] >= v3_frozen]
     names = {sid: e["name"] for sid, e in model["stations"].items()}
     per_day = defaultdict(list)
     for r in rows:
@@ -117,13 +164,31 @@ def main() -> None:
         "polls": polls,
         "counts": dict(counts),
         "all_stations": {"n_origins": len(rows), "stations": len({r["station_id"] for r in rows}),
-                         "scores": summarise(rows, ("trip_flow", "persistence"))},
+                         "scores": summarise(rows, ALL_METHODS)},
         "six_2022_stations": {"n_origins": len(six), "stations": sorted(names.get(s, s) for s in {r["station_id"] for r in six}),
-                              "scores": summarise(six, ("trip_flow", "model_2022", "persistence"))},
-        "by_day": {day: summarise(items, ("trip_flow", "persistence")) for day, items in sorted(per_day.items())},
+                              "scores": summarise(six, ("trip_flow", "trip_flow_v2", "trip_flow_v4", "model_2022", "persistence"))},
+        "by_day": {day: summarise(items, ("trip_flow", "trip_flow_v2", "persistence")) for day, items in sorted(per_day.items())},
+        "v3_since_freeze": {
+            "frozen_at": v3_config["frozen_at"] if v3_config else None,
+            "n_origins": len(after_freeze),
+            "scores": summarise(after_freeze, ("trip_flow", "trip_flow_v3", "persistence")),
+            "brier_differences": {key: {"v3_minus_v1": bootstrap_diff(after_freeze, "trip_flow_v3", "trip_flow", key),
+                                        "v3_minus_persistence": bootstrap_diff(after_freeze, "trip_flow_v3", "persistence", key)}
+                                  for key, _ in TARGETS},
+            "note": "Only this block is an out-of-sample test of v3; all-station v3 scores before frozen_at are biased.",
+        },
+        "brier_differences": {key: {
+            "v2_minus_v1": bootstrap_diff(rows, "trip_flow_v2", "trip_flow", key),
+            "v2_minus_persistence": bootstrap_diff(rows, "trip_flow_v2", "persistence", key),
+            "v1_minus_persistence": bootstrap_diff(rows, "trip_flow", "persistence", key),
+            "v2_minus_2022_six": bootstrap_diff(six, "trip_flow_v2", "model_2022", key),
+            "v4_minus_v1": bootstrap_diff(rows, "trip_flow_v4", "trip_flow", key),
+            "v4_minus_persistence": bootstrap_diff(rows, "trip_flow_v4", "persistence", key),
+            "v4_minus_2022_six": bootstrap_diff(six, "trip_flow_v4", "model_2022", key),
+        } for key, _ in TARGETS},
     }
     tmp = OUTPUT.with_suffix(".tmp")
-    tmp.write_text(json.dumps(result, indent=2) + "\n")
+    tmp.write_text(json.dumps(result, indent=2, default=str) + "\n")
     tmp.replace(OUTPUT)
 
     def line(label, block, methods):
@@ -135,10 +200,19 @@ def main() -> None:
     print(f"polls={polls} counts={dict(counts)}")
     print(f"All {result['all_stations']['stations']} stations:")
     for key, _ in TARGETS:
-        line(key, result["all_stations"]["scores"][key], ("trip_flow", "persistence"))
+        line(key, result["all_stations"]["scores"][key], ALL_METHODS)
     print(f"Six stations with 2022 model ({len(six)} origins):")
     for key, _ in TARGETS:
-        line(key, result["six_2022_stations"]["scores"][key], ("trip_flow", "model_2022", "persistence"))
+        line(key, result["six_2022_stations"]["scores"][key], ("trip_flow", "trip_flow_v2", "trip_flow_v4", "model_2022", "persistence"))
+    block = result["v3_since_freeze"]
+    print(f'v3 out-of-sample (origins since {block["frozen_at"]}): {block["n_origins"]} origins')
+    for key, _ in TARGETS:
+        line(key, block["scores"][key], ("trip_flow", "trip_flow_v3", "persistence"))
+    print("Brier differences (negative = first is better), 95% station-day bootstrap:")
+    for key, block in result["brier_differences"].items():
+        for name, value in block.items():
+            if value:
+                print(f'  {key:8s} {name:22s} {value["diff"]:+.5f}  [{value["ci95"][0]:+.5f}, {value["ci95"][1]:+.5f}]')
 
 
 if __name__ == "__main__":
