@@ -6,6 +6,7 @@ Only anonymous aggregate event counts are stored. No IP or user identifier is lo
 from __future__ import annotations
 
 import datetime as dt
+import gzip
 import hashlib
 import json
 import os
@@ -23,12 +24,15 @@ from train import count_bucket, transition_predict
 GBFS_BASE = "https://gbfs.lyft.com/gbfs/2.3/chi/en/"
 MODEL = ROOT / "models" / "historical_2022_transition.json"
 SNAPSHOTS = ROOT / "data" / "raw" / "prospective_2026.jsonl"
+NETWORK_DIR = pathlib.Path(os.environ.get("NETWORK_SNAPSHOTS_DIR", ROOT / "data" / "raw" / "network"))
 EVENTS = ROOT / "data" / "anonymous_events.json"
 STATIC = ROOT / "web"
 POLL_SECONDS = 60
 MAX_SOURCE_AGE = 300
 
-state = {"stations": [], "last_success": None, "last_error": None, "polls": 0, "errors": 0, "last_poll_latency_ms": None, "fresh_station_count": 0}
+state = {"stations": [], "last_success": None, "last_error": None, "polls": 0, "errors": 0, "last_poll_latency_ms": None, "fresh_station_count": 0,
+         "network_last_success": None, "network_last_error": None, "network_station_count": 0}
+network_written: dict[str, str] = {}  # day file -> fingerprint of the station list last written to it
 lock = threading.Lock()
 
 
@@ -36,6 +40,45 @@ def fetch_json(url: str) -> dict:
     req = urllib.request.Request(url, headers={"User-Agent": "arrival-risk-research-prototype/0.1"})
     with urllib.request.urlopen(req, timeout=15) as response:
         return json.load(response)
+
+
+def write_network_snapshot(now: dt.datetime, info: dict, status: dict) -> int:
+    """Append every Chicago station's status to a gzip file per Chicago calendar day.
+
+    Compact rows: [bikes, docks, ebikes, bikes_disabled, docks_disabled, renting, returning,
+    last_reported]. A "stations" line listing station ids and metadata precedes the first poll
+    of each file and is repeated whenever the station list changes. Uses the feeds already
+    fetched for Evanston; no extra requests. Reader: network_reader.py.
+    """
+    info_by_id = {s["station_id"]: s for s in info["data"]["stations"]}
+    rows, ids = [], []
+    for current in sorted(status["data"]["stations"], key=lambda s: s["station_id"]):
+        meta = info_by_id.get(current["station_id"])
+        if not meta:
+            continue
+        ids.append(current["station_id"])
+        rows.append([current.get("num_bikes_available"), current.get("num_docks_available"),
+                     current.get("num_ebikes_available"), current.get("num_bikes_disabled"),
+                     current.get("num_docks_disabled"), int(current.get("is_renting") == 1),
+                     int(current.get("is_returning") == 1), current.get("last_reported")])
+    day = now.astimezone(LOCAL).date().isoformat()
+    NETWORK_DIR.mkdir(parents=True, exist_ok=True)
+    path = NETWORK_DIR / f"{day}.jsonl.gz"
+    fingerprint = hashlib.sha256("|".join(ids).encode()).hexdigest()[:16]
+    lines = []
+    if network_written.get(path.name) != fingerprint:
+        stations = [[i, info_by_id[i].get("short_name"), info_by_id[i].get("name"), info_by_id[i].get("lat"),
+                     info_by_id[i].get("lon"), info_by_id[i].get("capacity"), info_by_id[i].get("region_id")] for i in ids]
+        lines.append({"type": "stations", "t": now.isoformat(), "fingerprint": fingerprint,
+                      "columns": ["station_id", "short_name", "name", "lat", "lon", "capacity", "region_id"], "stations": stations})
+    lines.append({"type": "poll", "t": now.isoformat(), "src": status.get("last_updated"), "fingerprint": fingerprint,
+                  "columns": ["bikes", "docks", "ebikes", "bikes_disabled", "docks_disabled", "renting", "returning", "last_reported"],
+                  "rows": rows})
+    payload = "".join(json.dumps(line, separators=(",", ":")) + "\n" for line in lines).encode()
+    with gzip.open(path, "ab") as handle:  # one gzip member per poll; readers handle concatenated members
+        handle.write(payload)
+    network_written[path.name] = fingerprint
+    return len(rows)
 
 
 def refresh() -> None:
@@ -76,6 +119,15 @@ def refresh() -> None:
     SNAPSHOTS.parent.mkdir(parents=True, exist_ok=True)
     with SNAPSHOTS.open("a") as file:
         file.write(json.dumps({"collected_at": now.isoformat(), "source_updated_at": status["last_updated"], "model_version": model_version, "stations": snapshot}) + "\n")
+    try:  # Chicago-wide archive is best effort; it must never interrupt the Evanston collector.
+        network_count = write_network_snapshot(now, info, status)
+        with lock:
+            state["network_last_success"], state["network_last_error"] = now.isoformat(), None
+            state["network_station_count"] = network_count
+    except Exception as exc:
+        with lock:
+            state["network_last_error"] = f"{type(exc).__name__}: {exc}"
+        print(f"Network snapshot failed: {exc}", flush=True)
     with lock:
         state["stations"] = stations
         state["last_success"] = now.isoformat()
@@ -156,7 +208,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/api/health":
             with lock:
                 ok = bool(state["last_success"]) and (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(state["last_success"])).total_seconds() < 180
-                self.send_json({"ok": ok, "polls": state["polls"], "errors": state["errors"], "last_success": state["last_success"], "station_count": len(state["stations"]), "fresh_station_count": state["fresh_station_count"], "last_poll_latency_ms": state["last_poll_latency_ms"]}, 200 if ok else 503)
+                self.send_json({"ok": ok, "polls": state["polls"], "errors": state["errors"], "last_success": state["last_success"], "station_count": len(state["stations"]), "fresh_station_count": state["fresh_station_count"], "last_poll_latency_ms": state["last_poll_latency_ms"], "network_last_success": state["network_last_success"], "network_last_error": state["network_last_error"], "network_station_count": state["network_station_count"]}, 200 if ok else 503)
             return
         if self.path == "/api/metrics":
             self.send_json({"anonymous_events_by_day": json.loads(EVENTS.read_text()) if EVENTS.exists() else {}})
