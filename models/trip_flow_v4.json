@@ -1,0 +1,59 @@
+{
+ "kind": "trip_flow_v4_weather",
+ "base_model": "trip_flow.json",
+ "fitted_at": "2026-10-18T23:07:26+00:00",
+ "hours_used": 8760,
+ "features": [
+  "intercept",
+  "cold_below_10c",
+  "hot_above_27c",
+  "rain_now",
+  "heavy_rain_now",
+  "rain_previous_2h",
+  "snowing",
+  "snow_on_ground",
+  "wind_above_20kmh"
+ ],
+ "beta": [
+  0.09675,
+  -0.17916,
+  -0.16103,
+  -0.23208,
+  -0.15055,
+  -0.09811,
+  -0.17468,
+  -0.05692,
+  -0.19046
+ ],
+ "std_error": [
+  0.00473,
+  0.01438,
+  0.03373,
+  0.01131,
+  0.03525,
+  0.01344,
+  0.04537,
+  0.02756,
+  0.02643
+ ],
+ "multiplier": {
+  "intercept": 1.102,
+  "cold_below_10c": 0.836,
+  "hot_above_27c": 0.851,
+  "rain_now": 0.793,
+  "heavy_rain_now": 0.86,
+  "rain_previous_2h": 0.907,
+  "snowing": 0.84,
+  "snow_on_ground": 0.945,
+  "wind_above_20kmh": 0.827
+ },
+ "holdout_check": {
+  "train_months": "202510..202606",
+  "holdout_months": "202607..202609",
+  "holdout_deviance_v1": 6560.4,
+  "holdout_deviance_v1_recalibrated": 6560.4,
+  "holdout_deviance_weather": 6443.8,
+  "holdout_hours": 2208
+ },
+ "weather_source": "Open-Meteo archive, hourly, nearest grid point to 42.045N -87.688E"
+}
