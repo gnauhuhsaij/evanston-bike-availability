@@ -1,6 +1,6 @@
 # First complete prospective day
 
-The collector began on October 16, 2026 at 21:46 Chicago time. October 16 is an initial partial day. If the process and computer keep running, the first complete Chicago calendar day is October 17. Its report is generated after 00:40 on October 18 by the server's 15-minute scheduler. The daily Codex follow-up checks the result later that morning.
+The collector began on October 16, 2026 at 21:46 Chicago time. The laptop shutdown interrupted collection for 57 minutes, from October 17 at 01:56:57 to 02:54:09 Chicago time. Collection resumed at **October 17, 02:54:09 CDT**; the new rolling 24-hour window ends **October 18, 02:54:09 CDT**. Its exact bounds are recorded in the ignored `data/collection_window_2026-10-17.json` file. October 17 is therefore not a complete calendar day. If collection stays uninterrupted, October 18 can be the first complete Chicago calendar day, assessed after 00:40 on October 19. The October 17 daily report remains useful for measuring the outage and match rate, but its coverage must be reported honestly.
 
 ## Measurements to report
 

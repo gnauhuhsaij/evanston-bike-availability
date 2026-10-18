@@ -7,3 +7,8 @@ data/prospective_metrics.json
 data/daily/
 data/local_collector.plist
 data/collector*.log
+data/caffeinate*.log
+data/collection_window_*.json
+.DS_Store
+.design-staging/
+design-backup-*/
