@@ -1,0 +1,223 @@
+{
+ "source": "https://gbfs.lyft.com/gbfs/2.3/chi/en/station_information.json (region_id 35)",
+ "fetched_at": "2026-10-18T00:25:00Z",
+ "note": "short_name matches start/end_station_id in the monthly trip files",
+ "stations": [
+  {
+   "station_id": "2246215988797035830",
+   "short_name": "CHI02390",
+   "name": "Bent Park",
+   "lat": 42.064494,
+   "lon": -87.724011,
+   "capacity": 6
+  },
+  {
+   "station_id": "2245646187730700376",
+   "short_name": "CHI02386",
+   "name": "South Boulevard CTA",
+   "lat": 42.0274991,
+   "lon": -87.6781649,
+   "capacity": 8
+  },
+  {
+   "station_id": "2246051588008437124",
+   "short_name": "CHI02388",
+   "name": "Evanston Civic Center",
+   "lat": 42.057127,
+   "lon": -87.686482,
+   "capacity": 8
+  },
+  {
+   "station_id": "2246219009938486686",
+   "short_name": "CHI02391",
+   "name": "Arrington Lagoon",
+   "lat": 42.046434,
+   "lon": -87.6738773,
+   "capacity": 6
+  },
+  {
+   "station_id": "2239371122346611190",
+   "short_name": "CHI02361",
+   "name": "Chicago Ave & Grove St",
+   "lat": 42.0452227,
+   "lon": -87.6799575,
+   "capacity": 12
+  },
+  {
+   "station_id": "a3b310ac-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI01208",
+   "name": "University Library (NU)",
+   "lat": 42.052939,
+   "lon": -87.673447,
+   "capacity": 15
+  },
+  {
+   "station_id": "2246595749089478166",
+   "short_name": "CHI02395",
+   "name": "Northwestern Main Campus",
+   "lat": 42.053906,
+   "lon": -87.677688,
+   "capacity": 12
+  },
+  {
+   "station_id": "a3b377cb-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02044",
+   "name": "Robert Crown Community Center",
+   "lat": 42.034189,
+   "lon": -87.697676,
+   "capacity": 15
+  },
+  {
+   "station_id": "2246596861486007846",
+   "short_name": "CHI02396",
+   "name": "Burnham Shores",
+   "lat": 42.0403531,
+   "lon": -87.6702128,
+   "capacity": 6
+  },
+  {
+   "station_id": "a3b2f698-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI00741",
+   "name": "Dodge Ave & Church St",
+   "lat": 42.048308,
+   "lon": -87.698224,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b30b06-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI01114",
+   "name": "Sheridan Rd & Noyes St (NU)",
+   "lat": 42.058239,
+   "lon": -87.677432,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b300d3-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02042",
+   "name": "Central St & Girard Ave",
+   "lat": 42.064313,
+   "lon": -87.686152,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b2e20c-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI00737",
+   "name": "Benson Ave & Church St",
+   "lat": 42.048214,
+   "lon": -87.683485,
+   "capacity": 19
+  },
+  {
+   "station_id": "a3b49b4c-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI00798",
+   "name": "Orrington Ave & Clark St",
+   "lat": 42.050086,
+   "lon": -87.679956,
+   "capacity": 15
+  },
+  {
+   "station_id": "2246221031600538080",
+   "short_name": "CHI02393",
+   "name": "Harbert Park",
+   "lat": 42.033803,
+   "lon": -87.708814,
+   "capacity": 6
+  },
+  {
+   "station_id": "2245701723851962616",
+   "short_name": "CHI02387",
+   "name": "Maple Ave & Grove St",
+   "lat": 42.045537,
+   "lon": -87.685317,
+   "capacity": 8
+  },
+  {
+   "station_id": "a3b2e72c-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02038",
+   "name": "Chicago Ave & Washington St",
+   "lat": 42.032562,
+   "lon": -87.679101,
+   "capacity": 15
+  },
+  {
+   "station_id": "2244216452452080904",
+   "short_name": "CHI02368",
+   "name": "ETHS Main Campus",
+   "lat": 42.044138,
+   "lon": -87.698823,
+   "capacity": 7
+  },
+  {
+   "station_id": "a3b305e7-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02043",
+   "name": "Chicago Ave & Sheridan Rd",
+   "lat": 42.050491,
+   "lon": -87.677821,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b2fbb6-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02041",
+   "name": "Central St Metra",
+   "lat": 42.063598,
+   "lon": -87.69873,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b2ec43-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI00739",
+   "name": "Elmwood Ave & Austin St",
+   "lat": 42.025784,
+   "lon": -87.684107,
+   "capacity": 6
+  },
+  {
+   "station_id": "2246085102741633664",
+   "short_name": "CHI02389",
+   "name": "Noyes CTA",
+   "lat": 42.0584715,
+   "lon": -87.683518,
+   "capacity": 15
+  },
+  {
+   "station_id": "a3b2f15e-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI00977",
+   "name": "Valli Produce - Evanston Plaza",
+   "lat": 42.039742,
+   "lon": -87.699413,
+   "capacity": 8
+  },
+  {
+   "station_id": "a3b4963f-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI01222",
+   "name": "Dempster CTA",
+   "lat": 42.041267,
+   "lon": -87.681577,
+   "capacity": 15
+  },
+  {
+   "station_id": "2246222815279511014",
+   "short_name": "CHI02394",
+   "name": "Dodge Ave & Mulford St",
+   "lat": 42.02365,
+   "lon": -87.699617,
+   "capacity": 8
+  },
+  {
+   "station_id": "2246219929932439602",
+   "short_name": "CHI02392",
+   "name": "Clark Beach",
+   "lat": 42.0500013,
+   "lon": -87.6740198,
+   "capacity": 8
+  },
+  {
+   "station_id": "a3b4a05c-a135-11e9-9cda-0a87ae2ba916",
+   "short_name": "CHI02045",
+   "name": "Lincolnwood Dr & Central St",
+   "lat": 42.064854,
+   "lon": -87.715297,
+   "capacity": 6
+  }
+ ]
+}

@@ -41,6 +41,18 @@ The Dockerfile packages the site, poller, and daily assessor. A future hosted de
 
 Before a public release, collect recent data, hold out a future period that has not been used for tuning, and check calibration and improvement over the persistence baseline. One day can establish collection and label feasibility but may have too few zero-bike or zero-dock events to establish model quality. The currently displayed 2022 model is suitable only as a clearly labeled research preview.
 
+## Recent trip-flow model (candidate) and baselines
+
+`trip_flow.py` learns, for each of the 27 Evanston stations, how many bikes leave and arrive per hour (weekday/weekend) from the operator's monthly trip files, 2025-10 through 2026-09. Rates are seasonally adjusted with a calendar-month factor computed from the 14 stations open all year, stations that opened in mid-2026 are averaged only over the days since their first trip, and sparse station-hours are shrunk toward the Evanston hourly profile (10 pseudo-days). A birth-death chain bounded by current bikes + open docks turns the current reported stock into 30-minute probabilities of zero bikes or zero open docks. Rebalancing, dockless e-bike parking and turned-away riders are not visible in trip records.
+
+```bash
+python3 trip_flow.py count all   # trip CSVs in data/raw/ -> data/trip_counts/
+python3 trip_flow.py fit         # -> models/trip_flow.json
+python3 compare_models.py        # -> data/model_comparison.json
+```
+
+`compare_models.py` scores the trip-flow model, the deployed 2022 transition model (kept as a second baseline, six stations) and the current-state persistence baseline on identical prospective origins, using the same origin and outcome rules as `prospective.py`. The trip data ends before the first snapshot, so this is an out-of-time test; no parameters were tuned on it. The live site still serves the 2022 model; switching requires a server restart and should wait until the comparison has enough events. The station mapping `data/evanston_stations.json` (GBFS `station_id` to trip-file `short_name`) was captured from the public station_information feed on 2026-10-18.
+
 ## Data use and attribution
 
 - [Divvy system data and official GBFS feed](https://divvybikes.com/system-data)

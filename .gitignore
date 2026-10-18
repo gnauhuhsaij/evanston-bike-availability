@@ -12,3 +12,4 @@ data/collection_window_*.json
 .DS_Store
 .design-staging/
 design-backup-*/
+data/trip_counts/

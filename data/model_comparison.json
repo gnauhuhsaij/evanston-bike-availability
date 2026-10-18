@@ -1,0 +1,728 @@
+{
+  "generated_at": "2026-10-18T00:28:31+00:00",
+  "trip_flow_trained_months": [
+    "202510",
+    "202511",
+    "202512",
+    "202601",
+    "202602",
+    "202603",
+    "202604",
+    "202605",
+    "202606",
+    "202607",
+    "202608",
+    "202609"
+  ],
+  "polls": 1212,
+  "counts": {
+    "origin_buckets": 3402,
+    "matched": 2718,
+    "future_missing_or_pending": 147,
+    "origin_stale_or_closed": 463,
+    "future_stale_or_closed": 74
+  },
+  "all_stations": {
+    "n_origins": 2718,
+    "stations": 25,
+    "scores": {
+      "no_bike": {
+        "trip_flow": {
+          "n": 2718,
+          "positives": 120,
+          "prevalence": 0.0442,
+          "brier": 0.01175,
+          "auc": 0.9895,
+          "ece_10_bins": 0.0062,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2569,
+              "mean_predicted": 0.0025,
+              "observed": 0.0054
+            },
+            {
+              "bin": 1,
+              "n": 20,
+              "mean_predicted": 0.1332,
+              "observed": 0.25
+            },
+            {
+              "bin": 2,
+              "n": 16,
+              "mean_predicted": 0.2493,
+              "observed": 0.25
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3631,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 3,
+              "mean_predicted": 0.5821,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 14,
+              "mean_predicted": 0.7708,
+              "observed": 0.7857
+            },
+            {
+              "bin": 8,
+              "n": 46,
+              "mean_predicted": 0.8575,
+              "observed": 0.913
+            },
+            {
+              "bin": 9,
+              "n": 48,
+              "mean_predicted": 0.9497,
+              "observed": 0.9167
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2718,
+          "positives": 120,
+          "prevalence": 0.0442,
+          "brier": 0.01361,
+          "auc": 0.9015,
+          "ece_10_bins": 0.0136,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2607,
+              "mean_predicted": 0.0,
+              "observed": 0.0088
+            },
+            {
+              "bin": 9,
+              "n": 111,
+              "mean_predicted": 1.0,
+              "observed": 0.8739
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.1367
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 2718,
+          "positives": 233,
+          "prevalence": 0.0857,
+          "brier": 0.02831,
+          "auc": 0.979,
+          "ece_10_bins": 0.0194,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2399,
+              "mean_predicted": 0.0039,
+              "observed": 0.0083
+            },
+            {
+              "bin": 1,
+              "n": 45,
+              "mean_predicted": 0.1428,
+              "observed": 0.1111
+            },
+            {
+              "bin": 2,
+              "n": 36,
+              "mean_predicted": 0.2433,
+              "observed": 0.6944
+            },
+            {
+              "bin": 3,
+              "n": 10,
+              "mean_predicted": 0.3269,
+              "observed": 0.2
+            },
+            {
+              "bin": 5,
+              "n": 34,
+              "mean_predicted": 0.5484,
+              "observed": 0.6471
+            },
+            {
+              "bin": 6,
+              "n": 33,
+              "mean_predicted": 0.6349,
+              "observed": 0.8182
+            },
+            {
+              "bin": 7,
+              "n": 27,
+              "mean_predicted": 0.7683,
+              "observed": 0.5556
+            },
+            {
+              "bin": 8,
+              "n": 41,
+              "mean_predicted": 0.8479,
+              "observed": 0.8293
+            },
+            {
+              "bin": 9,
+              "n": 93,
+              "mean_predicted": 0.9707,
+              "observed": 0.8925
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2718,
+          "positives": 233,
+          "prevalence": 0.0857,
+          "brier": 0.03642,
+          "auc": 0.879,
+          "ece_10_bins": 0.0364,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2490,
+              "mean_predicted": 0.0,
+              "observed": 0.0209
+            },
+            {
+              "bin": 9,
+              "n": 228,
+              "mean_predicted": 1.0,
+              "observed": 0.7939
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.2227
+        }
+      }
+    }
+  },
+  "six_2022_stations": {
+    "n_origins": 714,
+    "stations": [
+      "Benson Ave & Church St",
+      "Central St Metra",
+      "Chicago Ave & Sheridan Rd",
+      "Dodge Ave & Church St",
+      "Sheridan Rd & Noyes St (NU)",
+      "University Library (NU)"
+    ],
+    "scores": {
+      "no_bike": {
+        "trip_flow": {
+          "n": 714,
+          "positives": 3,
+          "prevalence": 0.0042,
+          "brier": 0.00558,
+          "auc": 0.9878,
+          "ece_10_bins": 0.0091,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 700,
+              "mean_predicted": 0.0011,
+              "observed": 0.0
+            },
+            {
+              "bin": 1,
+              "n": 6,
+              "mean_predicted": 0.1041,
+              "observed": 0.5
+            },
+            {
+              "bin": 2,
+              "n": 3,
+              "mean_predicted": 0.2889,
+              "observed": 0.0
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3631,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 3,
+              "mean_predicted": 0.5821,
+              "observed": 0.0
+            }
+          ]
+        },
+        "model_2022": {
+          "n": 714,
+          "positives": 3,
+          "prevalence": 0.0042,
+          "brier": 0.00707,
+          "auc": 0.9459,
+          "ece_10_bins": 0.0039,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 711,
+              "mean_predicted": 0.0038,
+              "observed": 0.0042
+            },
+            {
+              "bin": 8,
+              "n": 3,
+              "mean_predicted": 0.824,
+              "observed": 0.0
+            }
+          ]
+        },
+        "persistence": {
+          "n": 714,
+          "positives": 3,
+          "prevalence": 0.0042,
+          "brier": 0.0084,
+          "auc": 0.4979,
+          "ece_10_bins": 0.0084,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 711,
+              "mean_predicted": 0.0,
+              "observed": 0.0042
+            },
+            {
+              "bin": 9,
+              "n": 3,
+              "mean_predicted": 1.0,
+              "observed": 0.0
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.3357,
+          "model_2022": 0.1583
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 714,
+          "positives": 111,
+          "prevalence": 0.1555,
+          "brier": 0.06916,
+          "auc": 0.9465,
+          "ece_10_bins": 0.061,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 552,
+              "mean_predicted": 0.0028,
+              "observed": 0.0181
+            },
+            {
+              "bin": 1,
+              "n": 19,
+              "mean_predicted": 0.1385,
+              "observed": 0.1053
+            },
+            {
+              "bin": 2,
+              "n": 26,
+              "mean_predicted": 0.2466,
+              "observed": 0.8077
+            },
+            {
+              "bin": 3,
+              "n": 10,
+              "mean_predicted": 0.3269,
+              "observed": 0.2
+            },
+            {
+              "bin": 5,
+              "n": 32,
+              "mean_predicted": 0.5454,
+              "observed": 0.6875
+            },
+            {
+              "bin": 6,
+              "n": 28,
+              "mean_predicted": 0.6385,
+              "observed": 0.8214
+            },
+            {
+              "bin": 7,
+              "n": 20,
+              "mean_predicted": 0.7664,
+              "observed": 0.5
+            },
+            {
+              "bin": 8,
+              "n": 10,
+              "mean_predicted": 0.8184,
+              "observed": 0.7
+            },
+            {
+              "bin": 9,
+              "n": 17,
+              "mean_predicted": 0.9665,
+              "observed": 0.8235
+            }
+          ]
+        },
+        "model_2022": {
+          "n": 714,
+          "positives": 111,
+          "prevalence": 0.1555,
+          "brier": 0.07116,
+          "auc": 0.9343,
+          "ece_10_bins": 0.0388,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 544,
+              "mean_predicted": 0.003,
+              "observed": 0.0184
+            },
+            {
+              "bin": 1,
+              "n": 63,
+              "mean_predicted": 0.144,
+              "observed": 0.3968
+            },
+            {
+              "bin": 7,
+              "n": 107,
+              "mean_predicted": 0.742,
+              "observed": 0.7103
+            }
+          ]
+        },
+        "persistence": {
+          "n": 714,
+          "positives": 111,
+          "prevalence": 0.1555,
+          "brier": 0.09244,
+          "auc": 0.8166,
+          "ece_10_bins": 0.0924,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 607,
+              "mean_predicted": 0.0,
+              "observed": 0.0577
+            },
+            {
+              "bin": 9,
+              "n": 107,
+              "mean_predicted": 1.0,
+              "observed": 0.7103
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.2518,
+          "model_2022": 0.2302
+        }
+      }
+    }
+  },
+  "by_day": {
+    "2026-10-16": {
+      "no_bike": {
+        "trip_flow": {
+          "n": 321,
+          "positives": 19,
+          "prevalence": 0.0592,
+          "brier": 0.01781,
+          "auc": 0.9916,
+          "ece_10_bins": 0.0149,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 302,
+              "mean_predicted": 0.0012,
+              "observed": 0.0099
+            },
+            {
+              "bin": 9,
+              "n": 19,
+              "mean_predicted": 0.9549,
+              "observed": 0.8421
+            }
+          ]
+        },
+        "persistence": {
+          "n": 321,
+          "positives": 19,
+          "prevalence": 0.0592,
+          "brier": 0.01869,
+          "auc": 0.9161,
+          "ece_10_bins": 0.0187,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 302,
+              "mean_predicted": 0.0,
+              "observed": 0.0099
+            },
+            {
+              "bin": 9,
+              "n": 19,
+              "mean_predicted": 1.0,
+              "observed": 0.8421
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.0471
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 321,
+          "positives": 21,
+          "prevalence": 0.0654,
+          "brier": 0.02988,
+          "auc": 0.9767,
+          "ece_10_bins": 0.0217,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 299,
+              "mean_predicted": 0.0049,
+              "observed": 0.0134
+            },
+            {
+              "bin": 2,
+              "n": 5,
+              "mean_predicted": 0.2411,
+              "observed": 0.8
+            },
+            {
+              "bin": 7,
+              "n": 5,
+              "mean_predicted": 0.7759,
+              "observed": 0.8
+            },
+            {
+              "bin": 8,
+              "n": 8,
+              "mean_predicted": 0.8182,
+              "observed": 0.75
+            },
+            {
+              "bin": 9,
+              "n": 4,
+              "mean_predicted": 0.9919,
+              "observed": 0.75
+            }
+          ]
+        },
+        "persistence": {
+          "n": 321,
+          "positives": 21,
+          "prevalence": 0.0654,
+          "brier": 0.03738,
+          "auc": 0.8029,
+          "ece_10_bins": 0.0374,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 304,
+              "mean_predicted": 0.0,
+              "observed": 0.0263
+            },
+            {
+              "bin": 9,
+              "n": 17,
+              "mean_predicted": 1.0,
+              "observed": 0.7647
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.2006
+        }
+      }
+    },
+    "2026-10-17": {
+      "no_bike": {
+        "trip_flow": {
+          "n": 2397,
+          "positives": 101,
+          "prevalence": 0.0421,
+          "brier": 0.01094,
+          "auc": 0.9902,
+          "ece_10_bins": 0.0055,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2267,
+              "mean_predicted": 0.0027,
+              "observed": 0.0049
+            },
+            {
+              "bin": 1,
+              "n": 20,
+              "mean_predicted": 0.1332,
+              "observed": 0.25
+            },
+            {
+              "bin": 2,
+              "n": 16,
+              "mean_predicted": 0.2493,
+              "observed": 0.25
+            },
+            {
+              "bin": 3,
+              "n": 2,
+              "mean_predicted": 0.3631,
+              "observed": 0.0
+            },
+            {
+              "bin": 5,
+              "n": 3,
+              "mean_predicted": 0.5821,
+              "observed": 0.0
+            },
+            {
+              "bin": 7,
+              "n": 14,
+              "mean_predicted": 0.7708,
+              "observed": 0.7857
+            },
+            {
+              "bin": 8,
+              "n": 46,
+              "mean_predicted": 0.8575,
+              "observed": 0.913
+            },
+            {
+              "bin": 9,
+              "n": 29,
+              "mean_predicted": 0.9462,
+              "observed": 0.9655
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2397,
+          "positives": 101,
+          "prevalence": 0.0421,
+          "brier": 0.01293,
+          "auc": 0.8986,
+          "ece_10_bins": 0.0129,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2305,
+              "mean_predicted": 0.0,
+              "observed": 0.0087
+            },
+            {
+              "bin": 9,
+              "n": 92,
+              "mean_predicted": 1.0,
+              "observed": 0.8804
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.1539
+        }
+      },
+      "no_dock": {
+        "trip_flow": {
+          "n": 2397,
+          "positives": 212,
+          "prevalence": 0.0884,
+          "brier": 0.0281,
+          "auc": 0.9791,
+          "ece_10_bins": 0.0192,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2100,
+              "mean_predicted": 0.0038,
+              "observed": 0.0076
+            },
+            {
+              "bin": 1,
+              "n": 45,
+              "mean_predicted": 0.1428,
+              "observed": 0.1111
+            },
+            {
+              "bin": 2,
+              "n": 31,
+              "mean_predicted": 0.2437,
+              "observed": 0.6774
+            },
+            {
+              "bin": 3,
+              "n": 10,
+              "mean_predicted": 0.3269,
+              "observed": 0.2
+            },
+            {
+              "bin": 5,
+              "n": 34,
+              "mean_predicted": 0.5484,
+              "observed": 0.6471
+            },
+            {
+              "bin": 6,
+              "n": 33,
+              "mean_predicted": 0.6349,
+              "observed": 0.8182
+            },
+            {
+              "bin": 7,
+              "n": 22,
+              "mean_predicted": 0.7666,
+              "observed": 0.5
+            },
+            {
+              "bin": 8,
+              "n": 33,
+              "mean_predicted": 0.8551,
+              "observed": 0.8485
+            },
+            {
+              "bin": 9,
+              "n": 89,
+              "mean_predicted": 0.9698,
+              "observed": 0.8989
+            }
+          ]
+        },
+        "persistence": {
+          "n": 2397,
+          "positives": 212,
+          "prevalence": 0.0884,
+          "brier": 0.0363,
+          "auc": 0.8864,
+          "ece_10_bins": 0.0363,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 2186,
+              "mean_predicted": 0.0,
+              "observed": 0.0201
+            },
+            {
+              "bin": 9,
+              "n": 211,
+              "mean_predicted": 1.0,
+              "observed": 0.7962
+            }
+          ]
+        },
+        "brier_skill_vs_persistence": {
+          "trip_flow": 0.2259
+        }
+      }
+    }
+  }
+}
