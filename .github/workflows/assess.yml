@@ -1,0 +1,50 @@
+name: Daily assessment (manual recovery)
+
+# Rerun the daily prospective assessment for one Chicago calendar day on the server, e.g.
+# after downtime or a rollback around 00:40 when the automatic nightly run was missed.
+# Writes data/daily/<date>.json on the data disk; touches nothing else.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Chicago date to assess (YYYY-MM-DD); must be a completed day"
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  assess:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DAY: ${{ inputs.date }}
+      INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+    steps:
+      - name: Validate the date
+        run: |
+          if ! [[ "$DAY" =~ ^20[0-9]{2}-[01][0-9]-[0-3][0-9]$ ]]; then
+            echo "::error::date must look like 2026-10-19"; exit 1
+          fi
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Run daily.py on the server
+        run: |
+          set -euo pipefail
+          jq -n --arg day "$DAY" '{commands: ["set -euo pipefail", ("docker exec dockside python daily.py --date " + $day)], executionTimeout: ["600"]}' > params.json
+          command_id=$(aws ssm send-command --instance-ids "$INSTANCE_ID" --document-name AWS-RunShellScript \
+            --comment "daily assessment $DAY" --parameters file://params.json --query Command.CommandId --output text)
+          for i in $(seq 1 60); do
+            sleep 10
+            status=$(aws ssm get-command-invocation --command-id "$command_id" --instance-id "$INSTANCE_ID" \
+                     --query Status --output text 2>/dev/null || echo Pending)
+            case "$status" in Pending|InProgress|Delayed) continue ;; esac
+            break
+          done
+          aws ssm get-command-invocation --command-id "$command_id" --instance-id "$INSTANCE_ID" \
+            --query '[StandardOutputContent, StandardErrorContent]' --output text
+          echo "Final status: $status"
+          [ "$status" = "Success" ]

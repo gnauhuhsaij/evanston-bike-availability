@@ -1,6 +1,7 @@
 name: Test and package
 on:
   push:
+    branches-ignore: [main]   # main is tested by deploy.yml before deploying
   pull_request:
 jobs:
   test:
@@ -10,6 +11,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m compileall -q pilot.py train.py server.py prospective.py monitor.py analytics.py daily.py ops/local_collector.py
+      - run: python -m compileall -q .
       - run: python -m unittest discover -s tests -v
       - run: docker build -t divvy-arrival-risk:ci .
