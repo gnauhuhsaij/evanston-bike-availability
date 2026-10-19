@@ -132,7 +132,11 @@ def main() -> None:
             if flow is None:
                 counts["no_flow_prediction"] += 1
                 continue
-            old = station.get("experimental_risk")
+            logged = (station.get("predictions") or {})
+            if "model_2022" in logged:  # snapshots from the champion/challenger server log every model
+                old = dict(zip(("no_bike_30m", "no_dock_30m"), logged["model_2022"])) if logged["model_2022"] else None
+            else:                        # older snapshots: the served value was the 2022 model
+                old = station.get("experimental_risk")
             rows.append({
                 "station_id": station_id,
                 "date": stamp.astimezone(LOCAL).date().isoformat(),

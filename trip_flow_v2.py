@@ -169,8 +169,8 @@ def predict_v2(v1: dict, network: Network, station_id: str, bikes: int, docks: i
     """30-minute risks using only information collected before `when`. `use` selects components."""
     c = CONSTANTS
     entry = v1["stations"].get(str(station_id))
-    hist = network.stations.get(str(station_id))
-    if entry is None or hist is None or bikes is None or docks is None:
+    hist = network.stations.get(str(station_id)) or StationHistory([])  # no history yet -> corrections are neutral
+    if entry is None or bikes is None or docks is None:
         return None
     capacity = int(bikes) + int(docks)
     if capacity <= 0:

@@ -31,7 +31,9 @@ class NetworkSnapshotTests(unittest.TestCase):
         root = Path(self.tmp.name)
         self.patches = [patch.object(server, "SNAPSHOTS", root / "evanston.jsonl"),
                         patch.object(server, "NETWORK_DIR", root / "network"),
-                        patch.object(server, "network_written", {})]
+                        patch.object(server, "network_written", {}),
+                        patch.object(server, "NETWORK_ARCHIVE", True),
+                        patch.object(server, "runtime", server.ModelRuntime(fetch_weather=False))]
         for p in self.patches:
             p.start()
         self.root = root
@@ -51,7 +53,7 @@ class NetworkSnapshotTests(unittest.TestCase):
         self.run_polls(2)
         frames = [json.loads(l) for l in (self.root / "evanston.jsonl").read_text().splitlines()]
         self.assertEqual(len(frames), 2)
-        self.assertEqual(set(frames[0]), {"collected_at", "source_updated_at", "model_version", "stations"})
+        self.assertEqual(set(frames[0]), {"collected_at", "source_updated_at", "model_version", "champion", "stations"})
         self.assertEqual([s["station_id"] for s in frames[0]["stations"]], ["evan1"])
 
     def test_network_file_has_all_stations_and_one_metadata_line(self):

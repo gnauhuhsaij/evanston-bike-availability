@@ -1,0 +1,31 @@
+{
+ "champion": "trip_flow_v1",
+ "note": "The champion is shown on the site; every model listed is computed and logged in each snapshot under 'predictions'. Change 'champion' and deploy to switch. Promotion rule: reports/model-promotion.md.",
+ "models": {
+  "trip_flow_v1": {
+   "file": "models/trip_flow.json",
+   "label": "Experimental trip-flow model (2025-26 trips)",
+   "caveat": "Based on 2025-26 trip records; weekday accuracy still being measured"
+  },
+  "model_2022": {
+   "file": "models/historical_2022_transition.json",
+   "label": "Experimental 2022 model",
+   "caveat": "2022 station snapshots; six stations only"
+  },
+  "trip_flow_v2": {
+   "file": "models/trip_flow_v2.json",
+   "label": "Experimental trip-flow v2 (live corrections)",
+   "caveat": "Adjusts for recent activity, empty/full time and rebalancing"
+  },
+  "trip_flow_v3": {
+   "file": "models/trip_flow_v3.json",
+   "label": "Experimental trip-flow v3 (time empty/full)",
+   "caveat": "Adjusts for how long a station has been empty or full"
+  },
+  "trip_flow_v4": {
+   "file": "models/trip_flow_v4.json",
+   "label": "Experimental trip-flow v4 (weather)",
+   "caveat": "Adjusts trip rates for current weather"
+  }
+ }
+}

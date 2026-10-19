@@ -19,11 +19,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 from analytics import DAILY, LOCAL, station_history, write_day
 from pilot import ROOT
-from train import count_bucket, transition_predict
+from model_runtime import ModelRuntime
 
 GBFS_BASE = "https://gbfs.lyft.com/gbfs/2.3/chi/en/"
-MODEL = ROOT / "models" / "historical_2022_transition.json"
 SNAPSHOTS = ROOT / "data" / "raw" / "prospective_2026.jsonl"
+NETWORK_ARCHIVE = os.environ.get("NETWORK_ARCHIVE", "off").lower() in {"1", "on", "true", "yes"}
 NETWORK_DIR = pathlib.Path(os.environ.get("NETWORK_SNAPSHOTS_DIR", ROOT / "data" / "raw" / "network"))
 EVENTS = ROOT / "data" / "anonymous_events.json"
 STATIC = ROOT / "web"
@@ -33,6 +33,14 @@ MAX_SOURCE_AGE = 300
 state = {"stations": [], "last_success": None, "last_error": None, "polls": 0, "errors": 0, "last_poll_latency_ms": None, "fresh_station_count": 0,
          "network_last_success": None, "network_last_error": None, "network_station_count": 0}
 network_written: dict[str, str] = {}  # day file -> fingerprint of the station list last written to it
+runtime: ModelRuntime | None = None
+
+
+def get_runtime() -> ModelRuntime:
+    global runtime
+    if runtime is None:
+        runtime = ModelRuntime(fetch_weather=os.environ.get("FETCH_WEATHER", "on").lower() not in {"0", "off", "false", "no"})
+    return runtime
 lock = threading.Lock()
 
 
@@ -81,14 +89,29 @@ def write_network_snapshot(now: dt.datetime, info: dict, status: dict) -> int:
     return len(rows)
 
 
+def archive_network(now: dt.datetime, info: dict, status: dict) -> None:
+    """Best-effort Chicago-wide archive; off unless NETWORK_ARCHIVE=on. Never raises."""
+    if not NETWORK_ARCHIVE:
+        return
+    try:
+        count = write_network_snapshot(now, info, status)
+        with lock:
+            state["network_last_success"], state["network_last_error"] = now.isoformat(), None
+            state["network_station_count"] = count
+    except Exception as exc:
+        with lock:
+            state["network_last_error"] = f"{type(exc).__name__}: {exc}"
+        print(f"Network snapshot failed: {exc}", flush=True)
+
+
 def refresh() -> None:
     started = time.monotonic()
     info = fetch_json(GBFS_BASE + "station_information.json")
     status = fetch_json(GBFS_BASE + "station_status.json")
     status_by_id = {s["station_id"]: s for s in status["data"]["stations"]}
-    model_bytes = MODEL.read_bytes() if MODEL.exists() else None
-    model = json.loads(model_bytes) if model_bytes else None
-    model_version = hashlib.sha256(model_bytes).hexdigest()[:12] if model_bytes else None
+    models = get_runtime()
+    models.refresh()
+    champion = models.champion
     now = dt.datetime.now(dt.timezone.utc)
     stations = []
     snapshot = []
@@ -109,25 +132,17 @@ def refresh() -> None:
         }
         source_age = now.timestamp() - (record["last_reported"] or 0)
         record["fresh"] = 0 <= source_age <= MAX_SOURCE_AGE
-        if model and record["fresh"] and record["renting"] and record["returning"] and record["name"] in model["trained_stations"]:
-            record["experimental_risk"] = {
-                "no_bike_30m": round(transition_predict(model["targets"]["no_bike"], record["bikes"]), 3),
-                "no_dock_30m": round(transition_predict(model["targets"]["no_dock"], record["docks"]), 3),
-            }
+        predictions = models.predict_all(record, now)
+        if predictions.get(champion):
+            record["experimental_risk"] = predictions[champion]
         stations.append(record)
-        snapshot.append({"station_id": record["id"], "bikes": record["bikes"], "docks": record["docks"], "renting": record["renting"], "returning": record["returning"], "last_reported": record["last_reported"], "experimental_risk": record.get("experimental_risk")})
+        snapshot.append({"station_id": record["id"], "bikes": record["bikes"], "docks": record["docks"], "renting": record["renting"], "returning": record["returning"], "last_reported": record["last_reported"], "experimental_risk": record.get("experimental_risk"),
+                         "predictions": {name: [p["no_bike_30m"], p["no_dock_30m"]] if p else None for name, p in predictions.items()}})
     SNAPSHOTS.parent.mkdir(parents=True, exist_ok=True)
     with SNAPSHOTS.open("a") as file:
-        file.write(json.dumps({"collected_at": now.isoformat(), "source_updated_at": status["last_updated"], "model_version": model_version, "stations": snapshot}) + "\n")
-    try:  # Chicago-wide archive is best effort; it must never interrupt the Evanston collector.
-        network_count = write_network_snapshot(now, info, status)
-        with lock:
-            state["network_last_success"], state["network_last_error"] = now.isoformat(), None
-            state["network_station_count"] = network_count
-    except Exception as exc:
-        with lock:
-            state["network_last_error"] = f"{type(exc).__name__}: {exc}"
-        print(f"Network snapshot failed: {exc}", flush=True)
+        file.write(json.dumps({"collected_at": now.isoformat(), "source_updated_at": status["last_updated"], "model_version": models.model_version(), "champion": champion, "stations": snapshot}) + "\n")
+    models.observe(now, snapshot)
+    archive_network(now, info, status)
     with lock:
         state["stations"] = stations
         state["last_success"] = now.isoformat()
@@ -203,12 +218,12 @@ class Handler(BaseHTTPRequestHandler):
             return
         if self.path == "/api/stations":
             with lock:
-                self.send_json({"stations": state["stations"], "last_success": state["last_success"], "error": state["last_error"], "model_status": "2022 backtest only; 2026 prospective validation pending"})
+                self.send_json({"stations": state["stations"], "last_success": state["last_success"], "error": state["last_error"], "model": get_runtime().label(), "model_status": "Experimental; prospective validation in progress"})
             return
         if self.path == "/api/health":
             with lock:
                 ok = bool(state["last_success"]) and (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(state["last_success"])).total_seconds() < 180
-                self.send_json({"ok": ok, "polls": state["polls"], "errors": state["errors"], "last_success": state["last_success"], "station_count": len(state["stations"]), "fresh_station_count": state["fresh_station_count"], "last_poll_latency_ms": state["last_poll_latency_ms"], "network_last_success": state["network_last_success"], "network_last_error": state["network_last_error"], "network_station_count": state["network_station_count"]}, 200 if ok else 503)
+                self.send_json({"ok": ok, "polls": state["polls"], "errors": state["errors"], "last_success": state["last_success"], "station_count": len(state["stations"]), "fresh_station_count": state["fresh_station_count"], "last_poll_latency_ms": state["last_poll_latency_ms"], "network_last_success": state["network_last_success"], "network_last_error": state["network_last_error"], "network_station_count": state["network_station_count"], "network_archive": NETWORK_ARCHIVE, "champion": get_runtime().champion, "model_version": get_runtime().model_version(), "weather_error": get_runtime().weather_error}, 200 if ok else 503)
             return
         if self.path == "/api/metrics":
             self.send_json({"anonymous_events_by_day": json.loads(EVENTS.read_text()) if EVENTS.exists() else {}})
@@ -250,6 +265,8 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    seeded = get_runtime().load_history(SNAPSHOTS)
+    print(f"Model runtime ready: champion {get_runtime().model_version()}, {seeded} recent snapshots loaded", flush=True)
     threading.Thread(target=poller, daemon=True).start()
     threading.Thread(target=daily_assessor, daemon=True).start()
     host = os.environ.get("HOST", "127.0.0.1")
