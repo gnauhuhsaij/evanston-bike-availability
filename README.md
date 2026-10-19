@@ -61,6 +61,17 @@ The collector also archives every Chicago station's status (including e-bikes an
 
 `compare_models.py` scores the trip-flow model, the deployed 2022 transition model (kept as a second baseline, six stations) and the current-state persistence baseline on identical prospective origins, using the same origin and outcome rules as `prospective.py`. The trip data ends before the first snapshot, so this is an out-of-time test; no parameters were tuned on it. The live site still serves the 2022 model; switching requires a server restart and should wait until the comparison has enough events. The station mapping `data/evanston_stations.json` (GBFS `station_id` to trip-file `short_name`) was captured from the public station_information feed on 2026-10-18.
 
+## Deployment (AWS)
+
+The site and collector run as one container on a small EC2 server (`us-east-2`). Collected data lives on a separate disk mounted at `/srv/dockside/data` (inside the container: `/app/data`), so deploys and rollbacks never touch it. One-time AWS setup: the "Dockside AWS setup runbook" doc.
+
+- **Push to `main`** runs `.github/workflows/deploy.yml`: tests, builds an ARM image tagged with the commit, pushes it to ECR (keyless login through GitHub OIDC), and runs `deploy/deploy.sh` on the server through AWS Systems Manager. The script stops the old container, starts the new one, and checks health, a fresh snapshot with logged predictions, and champion probabilities within [0, 1]. On failure it restarts the previous version and the workflow fails.
+- **Manual rollback**: Actions → Deploy → Run workflow, with an earlier full commit SHA as `image_tag`.
+- **Manual daily assessment** (recovery after downtime): Actions → "Daily assessment (manual recovery)" with a date.
+- **Champion / challengers**: `models/registry.json` names the model shown on the site (`trip_flow_v1`); all models are computed every poll and logged under `predictions` in each snapshot for prospective scoring. The rule for replacing the champion is in `reports/model-promotion.md`.
+- **Chicago-wide archive** is off by default (`NETWORK_ARCHIVE=off`) pending the data-license question; enable with a line `NETWORK_ARCHIVE=on` in `/srv/dockside/state/env` and a redeploy.
+- **Private access**: the container listens only on the server's localhost; open it with an SSM port-forwarding session (see the runbook).
+
 ## Data use and attribution
 
 - [Divvy system data and official GBFS feed](https://divvybikes.com/system-data)
