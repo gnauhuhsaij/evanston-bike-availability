@@ -21,6 +21,9 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 PLIST = DATA / "local_collector.plist"
+# Logs live outside the project: launchd itself (not python) opens them before the job starts,
+# and it may not open files inside ~/Documents or ~/Desktop (exit 78 EX_CONFIG).
+LOGS = pathlib.Path.home() / "Library" / "Logs" / "dockside-evanston"
 LABEL = "dev.local.dockside-evanston.collector"
 DOMAIN = f"gui/{subprocess.check_output(['id', '-u'], text=True).strip()}"
 
@@ -31,18 +34,18 @@ def run(*args: str, check: bool = True) -> subprocess.CompletedProcess:
 
 def install() -> None:
     DATA.mkdir(exist_ok=True)
+    LOGS.mkdir(parents=True, exist_ok=True)
     payload = {
         "Label": LABEL,
         "ProgramArguments": [sys.executable, str(ROOT / "server.py")],
-        "WorkingDirectory": str(ROOT),
         "RunAtLoad": True,
         "KeepAlive": True,
         "ThrottleInterval": 15,
         "EnvironmentVariables": {"PYTHONUNBUFFERED": "1",
                                  "NETWORK_ARCHIVE": os.environ.get("NETWORK_ARCHIVE", "off"),
                                  "KEEP_AWAKE": os.environ.get("KEEP_AWAKE", "on")},
-        "StandardOutPath": str(DATA / "collector.log"),
-        "StandardErrorPath": str(DATA / "collector-error.log"),
+        "StandardOutPath": str(LOGS / "collector.log"),
+        "StandardErrorPath": str(LOGS / "collector-error.log"),
     }
     PLIST.write_bytes(plistlib.dumps(payload))
     run("bootout", f"{DOMAIN}/{LABEL}", check=False)
@@ -50,7 +53,7 @@ def install() -> None:
     if result.returncode:
         raise SystemExit(f"launchctl bootstrap failed: {result.stderr.strip()}")
     print(f"Installed {LABEL} (runs server.py directly; keep-awake {payload['EnvironmentVariables']['KEEP_AWAKE']}; Chicago-wide archive "
-          f"{payload['EnvironmentVariables']['NETWORK_ARCHIVE']}); logs: {DATA / 'collector.log'}")
+          f"{payload['EnvironmentVariables']['NETWORK_ARCHIVE']}); logs: {LOGS / 'collector.log'}")
 
 
 def status() -> None:
