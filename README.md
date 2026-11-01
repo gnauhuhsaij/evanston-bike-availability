@@ -1,6 +1,6 @@
 # Dockside Evanston — Divvy arrival risk research prototype
 
-An Evanston-first map of current bike and dock availability, with **experimental** 30-minute stockout risk for six stations. This is an independent research prototype. It is **not publicly deployed** and has **no verified real users**. The 2022 backtest does not establish 2026 accuracy. The current milestone is one complete day of local prospective measurement before making any release decision.
+An Evanston-first map of current bike and dock availability, with **experimental** 30-minute stockout risk for every Evanston station. This is an independent research prototype. It is **not publicly deployed** and has **no verified real users**. The 2022 backtest does not establish 2026 accuracy. The current milestone is one complete day of local prospective measurement before making any release decision.
 
 The measurement window and acceptance criteria are in [`reports/first-day-plan.md`](reports/first-day-plan.md).
 
@@ -37,7 +37,7 @@ The 30-minute target is whether a station has zero available bikes or zero open 
 
 ## Deployment and operations
 
-The Dockerfile packages the site, poller, and daily assessor. A future hosted deployment would need persistent storage for `/app/data` so snapshots and reports survive restarts. Set `HOST=0.0.0.0` and `PORT` as required by the host. `python3 monitor.py` checks freshness, polling failures, yesterday's coverage, and sufficiently evidenced deterioration; it exits nonzero for an actionable alert. `/api/health` reports poll latency, errors, and source freshness; `/api/metrics` exposes anonymous daily usage counts. The GitHub Actions CI workflow runs checks and builds the container on push/PR. A separate, manually triggered release workflow only packages an image to GHCR; it does not deploy a site. Both workflows become active only after this project is pushed to GitHub. No hosting account or production deployment is configured yet, and the current local-data milestone does not include publishing.
+The Dockerfile packages the site, poller, and daily assessor for running in a local container; mount `data/` at `/app/data` so snapshots and reports persist. Set `HOST=0.0.0.0` and `PORT` as required by the host. `python3 monitor.py` checks freshness, polling failures, yesterday's coverage, and sufficiently evidenced deterioration; it exits nonzero for an actionable alert. `/api/health` reports poll latency, errors, and source freshness; `/api/metrics` exposes anonymous daily usage counts. The GitHub Actions CI workflow runs checks and builds the container on push/PR. A separate, manually triggered release workflow only packages an image to GHCR; it does not deploy a site. Both workflows become active only after this project is pushed to GitHub. No hosting account or production deployment is configured yet, and the current local-data milestone does not include publishing.
 
 Before a public release, collect recent data, hold out a future period that has not been used for tuning, and check calibration and improvement over the persistence baseline. One day can establish collection and label feasibility but may have too few zero-bike or zero-dock events to establish model quality. The currently displayed 2022 model is suitable only as a clearly labeled research preview.
 
@@ -61,16 +61,15 @@ The collector also archives every Chicago station's status (including e-bikes an
 
 `compare_models.py` scores the trip-flow model, the deployed 2022 transition model (kept as a second baseline, six stations) and the current-state persistence baseline on identical prospective origins, using the same origin and outcome rules as `prospective.py`. The trip data ends before the first snapshot, so this is an out-of-time test; no parameters were tuned on it. The live site still serves the 2022 model; switching requires a server restart and should wait until the comparison has enough events. The station mapping `data/evanston_stations.json` (GBFS `station_id` to trip-file `short_name`) was captured from the public station_information feed on 2026-10-18.
 
-## Deployment (AWS)
+## Running locally
 
-The site and collector run as one container on a small EC2 server (`us-east-2`). Collected data lives on a separate disk mounted at `/srv/dockside/data` (inside the container: `/app/data`), so deploys and rollbacks never touch it. One-time AWS setup: the "Dockside AWS setup runbook" doc.
+The project runs on one Mac: `server.py` serves the site at `http://127.0.0.1:8787`, polls the feed every 60 seconds, writes snapshots, and scores each finished day after 00:40 Chicago time.
 
-- **Push to `main`** runs `.github/workflows/deploy.yml`: tests, builds an ARM image tagged with the commit, pushes it to ECR (keyless login through GitHub OIDC), and runs `deploy/deploy.sh` on the server through AWS Systems Manager. The script stops the old container, starts the new one, and checks health, a fresh snapshot with logged predictions, and champion probabilities within [0, 1]. On failure it restarts the previous version and the workflow fails.
-- **Manual rollback**: Actions → Deploy → Run workflow, with an earlier full commit SHA as `image_tag`.
-- **Manual daily assessment** (recovery after downtime): Actions → "Daily assessment (manual recovery)" with a date.
-- **Champion / challengers**: `models/registry.json` names the model shown on the site (`trip_flow_v1`); all models are computed every poll and logged under `predictions` in each snapshot for prospective scoring. The rule for replacing the champion is in `reports/model-promotion.md`.
-- **Chicago-wide archive** is off by default (`NETWORK_ARCHIVE=off`) pending the data-license question; enable with a line `NETWORK_ARCHIVE=on` in `/srv/dockside/state/env` and a redeploy.
-- **Private access**: the container listens only on the server's localhost; open it with an SSM port-forwarding session (see the runbook).
+- **Install the background job** once: `python3 ops/local_collector.py install`. launchd starts it at login and restarts it if it stops; it runs under `caffeinate -is`, so the Mac stays awake while collecting (a closed laptop lid still sleeps it). Check with `python3 ops/local_collector.py status`; stop with `uninstall`. After changing code or `models/registry.json`, restart it with `launchctl kickstart -k gui/$(id -u)/dev.local.dockside-evanston.collector`.
+- **Champion / challengers**: `models/registry.json` names the model shown on the site (`trip_flow_v1`); every model is computed each poll and logged under `predictions` in each snapshot for prospective scoring. The rule for replacing the champion is in `reports/model-promotion.md`; `python3 compare_models.py` produces the comparison.
+- **Recovery**: rerun a missed daily assessment with `python3 daily.py --date YYYY-MM-DD`.
+- **Chicago-wide archive** is off by default pending the data-license question; enable it with `NETWORK_ARCHIVE=on python3 ops/local_collector.py install`.
+- **Optional container**: `docker build -t dockside . && docker run -p 127.0.0.1:8787:8787 -v "$PWD/data:/app/data" dockside`.
 
 ## Data use and attribution
 

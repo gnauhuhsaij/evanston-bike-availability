@@ -15,7 +15,7 @@ weekdays**, scored by `compare_models.py` on origins after the challenger was fr
 3. It still beats the persistence baseline on both targets.
 4. It produces an estimate for at least as many stations as the champion.
 
-Switching: change `champion` in `models/registry.json`, commit, push (deploys automatically). Emergency
-switch without a deploy: write `{"champion": "<name>"}` to `/srv/dockside/data/registry_override.json`
-and restart the container. Any change to a challenger's code or parameters makes it a new version with
+Switching: change `champion` in `models/registry.json`, commit, and restart the collector
+(`launchctl kickstart -k gui/$(id -u)/dev.local.dockside-evanston.collector`). Temporary switch
+without a commit: write `{"champion": "<name>"}` to `data/registry_override.json` and restart. Any change to a challenger's code or parameters makes it a new version with
 its own freeze date; earlier scores do not carry over.

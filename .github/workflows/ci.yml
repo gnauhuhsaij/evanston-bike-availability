@@ -1,7 +1,6 @@
 name: Test and package
 on:
   push:
-    branches-ignore: [main]   # main is tested by deploy.yml before deploying
   pull_request:
 jobs:
   test:

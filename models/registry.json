@@ -1,6 +1,6 @@
 {
  "champion": "trip_flow_v1",
- "note": "The champion is shown on the site; every model listed is computed and logged in each snapshot under 'predictions'. Change 'champion' and deploy to switch. Promotion rule: reports/model-promotion.md.",
+ "note": "The champion is shown on the site; every model listed is computed and logged in each snapshot under 'predictions'. Change 'champion' and restart the collector to switch. Promotion rule: reports/model-promotion.md.",
  "models": {
   "trip_flow_v1": {
    "file": "models/trip_flow.json",

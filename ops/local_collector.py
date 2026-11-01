@@ -2,9 +2,15 @@
 
 Usage: python3 ops/local_collector.py install|status|uninstall
 The generated plist and logs stay in this project's ignored data directory.
+
+The job runs the server under `caffeinate -is`, so the Mac does not idle-sleep (and, on
+AC power, does not system-sleep) while the collector is running. Closing the lid on a
+laptop still sleeps it. Set NETWORK_ARCHIVE=on in the environment when running `install`
+to turn on the Chicago-wide archive (off by default).
 """
 from __future__ import annotations
 
+import os
 import pathlib
 import plistlib
 import subprocess
@@ -25,12 +31,13 @@ def install() -> None:
     DATA.mkdir(exist_ok=True)
     payload = {
         "Label": LABEL,
-        "ProgramArguments": [sys.executable, str(ROOT / "server.py")],
+        "ProgramArguments": ["/usr/bin/caffeinate", "-is", sys.executable, str(ROOT / "server.py")],
         "WorkingDirectory": str(ROOT),
         "RunAtLoad": True,
         "KeepAlive": True,
         "ThrottleInterval": 15,
-        "EnvironmentVariables": {"PYTHONUNBUFFERED": "1"},
+        "EnvironmentVariables": {"PYTHONUNBUFFERED": "1",
+                                 "NETWORK_ARCHIVE": os.environ.get("NETWORK_ARCHIVE", "off")},
         "StandardOutPath": str(DATA / "collector.log"),
         "StandardErrorPath": str(DATA / "collector-error.log"),
     }
@@ -39,7 +46,8 @@ def install() -> None:
     result = run("bootstrap", DOMAIN, str(PLIST), check=False)
     if result.returncode:
         raise SystemExit(f"launchctl bootstrap failed: {result.stderr.strip()}")
-    print(f"Installed {LABEL}; logs: {DATA / 'collector.log'}")
+    print(f"Installed {LABEL} (kept awake with caffeinate; Chicago-wide archive "
+          f"{payload['EnvironmentVariables']['NETWORK_ARCHIVE']}); logs: {DATA / 'collector.log'}")
 
 
 def status() -> None:

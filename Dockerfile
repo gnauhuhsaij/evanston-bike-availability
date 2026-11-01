@@ -8,10 +8,10 @@ WORKDIR /app
 COPY *.py ./
 COPY models/ ./models/
 COPY web/ ./web/
-COPY deploy/ ./deploy/
 
-# /app/data is the persistent data disk on the server (mounted at run time). It holds the
-# snapshots, daily reports and usage counts, and is never replaced by a deploy or rollback.
+# Mount the project's data folder at /app/data when running the container, e.g.
+#   docker run -p 127.0.0.1:8787:8787 -v "$PWD/data:/app/data" dockside
+# so snapshots, daily reports and usage counts persist outside the container.
 RUN mkdir -p /app/data/raw && chown -R app:app /app/data
 USER app
 
