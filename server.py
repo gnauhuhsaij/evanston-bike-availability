@@ -264,7 +264,19 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(400)
 
 
+def keep_awake() -> None:
+    """macOS: hold an idle/system sleep assertion for as long as this process lives."""
+    if os.environ.get("KEEP_AWAKE", "off") == "on" and os.path.exists("/usr/bin/caffeinate"):
+        import subprocess
+        try:
+            subprocess.Popen(["/usr/bin/caffeinate", "-is", "-w", str(os.getpid())])
+            print("Keeping the Mac awake while collecting (caffeinate)", flush=True)
+        except OSError as exc:
+            print(f"caffeinate unavailable: {exc}", flush=True)
+
+
 if __name__ == "__main__":
+    keep_awake()
     seeded = get_runtime().load_history(SNAPSHOTS)
     print(f"Model runtime ready: champion {get_runtime().model_version()}, {seeded} recent snapshots loaded", flush=True)
     threading.Thread(target=poller, daemon=True).start()

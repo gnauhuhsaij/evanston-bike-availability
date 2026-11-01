@@ -3,8 +3,10 @@
 Usage: python3 ops/local_collector.py install|status|uninstall
 The generated plist and logs stay in this project's ignored data directory.
 
-The job runs the server under `caffeinate -is`, so the Mac does not idle-sleep (and, on
-AC power, does not system-sleep) while the collector is running. Closing the lid on a
+The job runs server.py directly (launchd cannot spawn a wrapper such as caffeinate on a
+project inside ~/Documents: exit 78). With KEEP_AWAKE=on, server.py itself starts
+`caffeinate -is -w <its pid>`, so the Mac does not idle-sleep (and, on AC power, does not
+system-sleep) while the collector is running. Closing the lid on a
 laptop still sleeps it. Set NETWORK_ARCHIVE=on in the environment when running `install`
 to turn on the Chicago-wide archive (off by default).
 """
@@ -31,13 +33,14 @@ def install() -> None:
     DATA.mkdir(exist_ok=True)
     payload = {
         "Label": LABEL,
-        "ProgramArguments": ["/usr/bin/caffeinate", "-is", sys.executable, str(ROOT / "server.py")],
+        "ProgramArguments": [sys.executable, str(ROOT / "server.py")],
         "WorkingDirectory": str(ROOT),
         "RunAtLoad": True,
         "KeepAlive": True,
         "ThrottleInterval": 15,
         "EnvironmentVariables": {"PYTHONUNBUFFERED": "1",
-                                 "NETWORK_ARCHIVE": os.environ.get("NETWORK_ARCHIVE", "off")},
+                                 "NETWORK_ARCHIVE": os.environ.get("NETWORK_ARCHIVE", "off"),
+                                 "KEEP_AWAKE": os.environ.get("KEEP_AWAKE", "on")},
         "StandardOutPath": str(DATA / "collector.log"),
         "StandardErrorPath": str(DATA / "collector-error.log"),
     }
@@ -46,7 +49,7 @@ def install() -> None:
     result = run("bootstrap", DOMAIN, str(PLIST), check=False)
     if result.returncode:
         raise SystemExit(f"launchctl bootstrap failed: {result.stderr.strip()}")
-    print(f"Installed {LABEL} (kept awake with caffeinate; Chicago-wide archive "
+    print(f"Installed {LABEL} (runs server.py directly; keep-awake {payload['EnvironmentVariables']['KEEP_AWAKE']}; Chicago-wide archive "
           f"{payload['EnvironmentVariables']['NETWORK_ARCHIVE']}); logs: {DATA / 'collector.log'}")
 
 
